@@ -1,0 +1,129 @@
+#!/usr/bin/make -f
+# debian/rules for the Debian xutils package.
+# Copyright © 2004 Scott James Remnant <scott@netsplit.com>
+# Copyright © 2005 Daniel Stone <daniel@fooishbar.org>
+# Copyright © 2005 David Nusinow <dnusinow@debian.org>
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# set this to the name of the main shlib's binary package
+PACKAGE = xbase-clients
+
+include debian/xsfbs/xsfbs.mk
+
+# This package contains multiple modules as shipped by upstream. Each module is # contained in a subdirectory in the root dir of the package. You must list each
+# subdirectory explicitly so that the build system knows what to build
+DEF_SUBDIRS=appres-X11R7.0-1.0.0 beforelight-X11R7.0-1.0.1 bitmap-X11R7.0-1.0.1 editres-X11R7.0-1.0.1 fstobdf-X11R7.0-1.0.1 iceauth-X11R7.0-1.0.1 ico-X11R7.0-1.0.1 listres-X11R7.0-1.0.1 oclock-X11R7.0-1.0.1 smproxy viewres-X11R7.0-1.0.1 x11perf-1.4.1 xauth-X11R7.0-1.0.1 xbiff-X11R7.0-1.0.1 xcalc-X11R7.0-1.0.1 xclipboard-X11R7.0-1.0.1 xclock-X11R7.0-1.0.1 xcmsdb-X11R7.0-1.0.1 xconsole-X11R7.0-1.0.1 xcursorgen-X11R7.0-1.0.0 xdbedizzy-X11R7.0-1.0.1 xditview-X11R7.0-1.0.1 xdpyinfo-X11R7.0-1.0.1 xdriinfo-X11R7.0-1.0.0 xedit-X11R7.0-1.0.1 xev-X11R7.0-1.0.1 xeyes-X11R7.0-1.0.1 xf86dga-X11R7.0-1.0.1 xfd-X11R7.0-1.0.1 xfontsel-X11R7.0-1.0.1 xgamma-X11R7.0-1.0.1 xgc-X11R7.0-1.0.1 xhost-X11R7.0-1.0.0 xinit-X11R7.0-1.0.1 xkill-X11R7.0-1.0.1 xload-X11R7.0-1.0.1 xlogo-X11R7.0-1.0.1 xlsatoms-X11R7.0-1.0.1 xlsclients-X11R7.0-1.0.1 xlsfonts-X11R7.0-1.0.1 xmag-X11R7.0-1.0.1 xman-X11R7.0-1.0.1 xmessage-X11R7.0-1.0.1 xmodmap-X11R7.0-1.0.0 xmore-X11R7.0-1.0.1 xprop-X11R7.0-1.0.1 xrandr-X11R7.0-1.0.1 xrdb-X11R7.0-1.0.1 xrefresh-X11R7.0-1.0.1 xsetmode-X11R7.0-1.0.0 xsetpointer-X11R7.0-1.0.0 xsetroot-X11R7.0-1.0.1 xset-X11R7.0-1.0.1 xsm-X11R7.0-1.0.1 xstdcmap-X11R7.0-1.0.1 xtrap-X11R7.0-1.0.1 xvidtune-X11R7.0-1.0.1 xvinfo-X11R7.0-1.0.1 xwd-X11R7.0-1.0.1 xwininfo-X11R7.0-1.0.1 xwud-X11R7.0-1.0.1
+XKB_SUBDIRS1=setxkbmap-1.0.2
+XKB_SUBDIRS2=xkbcomp-X11R7.0-1.0.1 xkbevd-X11R7.0-1.0.1 xkbprint-X11R7.0-1.0.1 xkbutils-X11R7.0-1.0.1
+SUBDIRS=$(DEF_SUBDIRS) $(XKB_SUBDIRS1) $(XKB_SUBDIRS2)
+
+CFLAGS = -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+DEB_HOST_ARCH      ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
+	confflags += --build=$(DEB_HOST_GNU_TYPE)
+else
+	confflags += --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE)
+endif
+
+
+build: genscripts patch build-stamp
+build-stamp:
+	dh_testdir
+	for FILE in $(DEF_SUBDIRS); do \
+		echo "$$FILE" ; \
+		mkdir "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE); \
+		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
+		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
+		             --infodir=\$${prefix}/share/info $(confflags) \
+		             CFLAGS="$(CFLAGS)" && \
+		$(MAKE)) || exit 1; \
+	done
+
+	for FILE in $(XKB_SUBDIRS1); do \
+		echo "$$FILE" ; \
+		mkdir "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE); \
+		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
+		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
+		             --infodir=\$${prefix}/share/info $(confflags) \
+			     --with-xkb-config-root=/usr/share/X11/xkb \
+		             CFLAGS="$(CFLAGS)" && \
+		$(MAKE)) || exit 1; \
+	done
+
+	for FILE in $(XKB_SUBDIRS2); do \
+		echo "$$FILE" ; \
+		mkdir "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE); \
+		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
+		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
+		             --infodir=\$${prefix}/share/info $(confflags) \
+			     --datadir=/etc \
+		             CFLAGS="$(CFLAGS)" && \
+		$(MAKE)) || exit 1; \
+	done
+
+	touch build-stamp
+
+clean: xsfclean
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+
+	rm -f config.cache config.log config.status
+	rm -f */config.cache */config.log */config.status
+	rm -f conftest* */conftest*
+	rm -rf autom4te.cache */autom4te.cache
+	rm -rf *-obj-*
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	for FILE in $(SUBDIRS); do \
+		cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install ; \
+		cd ..; \
+	done
+	install -d debian/tmp/etc/X11/xinit
+	install -m 755 debian/local/xserverrc debian/tmp/etc/X11/xinit
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+
+	dh_installdocs
+	dh_install --sourcedir=debian/tmp --list-missing
+	dh_installchangelogs
+	dh_link
+	dh_strip --dbg-package=$(PACKAGE)
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_makeshlibs
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-independent files here.
+binary-indep: build install
+# Nothing to do
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

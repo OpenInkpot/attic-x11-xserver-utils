@@ -1,0 +1,13 @@
+Index: xbase-clients/bitmap-X11R7.0-1.0.1/bitmap.man
+===================================================================
+--- xbase-clients.orig/bitmap-X11R7.0-1.0.1/bitmap.man	2006-02-18 14:55:39.000000000 -0500
++++ xbase-clients/bitmap-X11R7.0-1.0.1/bitmap.man	2006-02-26 20:35:50.000000000 -0500
+@@ -162,7 +162,7 @@
+ .SH USAGE 
+ \fIBitmap\fP displays grid in which each square represents a single
+ bit in the picture being edited.  Actual size of the bitmap image, as
+-it would appear normaly and inverted, can be obtained by pressing\fB
++it would appear normally and inverted, can be obtained by pressing\fB
+ Meta-I\fP key.  You are free to move the image popup out of the way to
+ continue editing.  Pressing the left mouse button in the popup window
+ or\fB Meta-I\fP again will remove the real size bitmap image.

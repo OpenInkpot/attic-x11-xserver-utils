@@ -1,0 +1,88 @@
+$Id$
+
+As explained in #324768, this patch modifies setxkbmap and xkbcomp
+programs so that they look for XKB data files in $XKBPATH if this
+environment variable is set.  This allows installing both xlibs and
+xkeyboard-config at the same time, so that xkeyboard-config can
+install its files under /etc/X11/xkb-data until all packages depending
+on xlibs are fixed.  This patch by Denis Barbier.
+
+This patch will not be submitted upstream.
+
+Index: setxkbmap-1.0.2/setxkbmap.c
+===================================================================
+--- setxkbmap-1.0.2/setxkbmap.c
++++ setxkbmap-1.0.2/setxkbmap.c
+@@ -318,9 +318,13 @@
+ int 	i;
+ Bool	ok;
+ unsigned	present;
++char	*xkbpath;
+ 
+     ok= True;
+     addToList(&szInclPath,&numInclPath,&inclPath,".");
++    xkbpath= (char *)getenv("XKBPATH");
++    if (xkbpath!=NULL)
++	addToList(&szInclPath,&numInclPath,&inclPath,xkbpath);
+     addToList(&szInclPath,&numInclPath,&inclPath,DFLT_XKB_CONFIG_ROOT);
+     for (i=1;(i<argc)&&ok;i++) {
+ 	if (argv[i][0]!='-') {
+Index: xkbcomp-X11R7.0-1.0.1/xkbpath.c
+===================================================================
+--- xkbcomp-X11R7.0-1.0.1/xkbpath.c
++++ xkbcomp-X11R7.0-1.0.1/xkbpath.c
+@@ -131,9 +131,14 @@
+ void
+ XkbAddDefaultDirectoriesToPath(void)
+ {
++char *xkbpath;
++
+     if (noDefaultPath)
+ 	return;
+     XkbAddDirectoryToPath(".");
++    xkbpath= (char *)getenv("XKBPATH");
++    if (xkbpath!=NULL)
++	XkbAddDirectoryToPath(xkbpath);
+     XkbAddDirectoryToPath(DFLT_XKB_CONFIG_ROOT);
+ }
+ 
+Index: xkbevd-X11R7.0-1.0.1/xkbevd.c
+===================================================================
+--- xkbevd-X11R7.0-1.0.1/xkbevd.c
++++ xkbevd-X11R7.0-1.0.1/xkbevd.c
+@@ -471,20 +471,28 @@
+     else {
+ 	file= fopen(cfgFileName,"r");
+ 	if (file==NULL) { /* no personal config, try for a system one */
++	    char *xkbpath;
+ 	    if (cfgFileName!=buf) { /* user specified a file.  bail */
+ 		uError("Can't open config file \"%s\n",cfgFileName);
+ 		uAction("Exiting\n");
+ 		exit(1);
+ 	    }
+-	    sprintf(buf,DFLT_SYS_XKBEVD_CONFIG,DFLT_XKB_CONFIG_ROOT);
+-	    file= fopen(cfgFileName,"r");
++	    xkbpath= (char *)getenv("XKBPATH");
++	    if (xkbpath!=NULL) {
++		sprintf(buf,DFLT_SYS_XKBEVD_CONFIG,xkbpath);
++		file= fopen(cfgFileName,"r");
++	    }
+ 	    if (file==NULL) {
+-		if (verbose) {
+-		    uError("Couldn't find a config file anywhere\n");
+-		    uAction("Exiting\n");
+-		    exit(1);
++	        sprintf(buf,DFLT_SYS_XKBEVD_CONFIG,DFLT_XKB_CONFIG_ROOT);
++	        file= fopen(cfgFileName,"r");
++		if (file==NULL) {
++		    if (verbose) {
++			uError("Couldn't find a config file anywhere\n");
++			uAction("Exiting\n");
++			exit(1);
++		    }
++		    exit(0);
+ 		}
+-		exit(0);
+ 	    }
+ 	}
+     }

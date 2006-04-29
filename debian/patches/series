@@ -1,0 +1,12 @@
+001_debian_xinitrc.diff
+02_startx_hostname.diff
+03_startx_dummy.diff
+04_xev_flush_standard_output.diff
+05_bitmap_manpage_typo.diff
+06_xedit_manpage_typos.diff
+07_xvinfo_manpage_typo.diff
+08_xlsfonts_do_not_spew_usage_on_connection_error.diff -p0
+09_debian_startx_manpage.diff -p0
+10_debian_add_xkbpath_env_variable.diff -p0
+11_xkb_documentation_updates.diff -p0
+12_startx_paths.diff

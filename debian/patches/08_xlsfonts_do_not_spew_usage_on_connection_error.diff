@@ -1,0 +1,29 @@
+$Id: 099r_xlsfonts_do_not_spew_usage_on_connection_error.diff 480 2005-08-02 20:14:26Z branden $
+
+This patch by Branden Robinson.
+
+General philosophy:
+
+The user should only be shown a usage messages when:
+  * it is asked for with a --help option or the like.
+  * the command line is syntactically invalid.
+
+Because xlsfonts's dsimple.c source file is also used in xprop, xwd, and
+xwininfo, this patch also corrects this behavior for those programs.
+
+Not submitted upstream to XFree86 or X.Org.
+
+Index: xlsfonts-X11R7.0-1.0.1/dsimple.c
+===================================================================
+--- xlsfonts-X11R7.0-1.0.1/dsimple.c.orig	2006-02-18 14:55:15.000000000 -0500
++++ xlsfonts-X11R7.0-1.0.1/dsimple.c	2006-02-26 22:36:04.000000000 -0500
+@@ -188,8 +188,7 @@
+ 	if (d == NULL) {
+ 	    fprintf (stderr, "%s:  unable to open display '%s'\n",
+ 		     program_name, XDisplayName (display_name));
+-	    usage ();
+-	    /* doesn't return */
++	    exit (1);
+ 	}
+ 
+ 	return(d);

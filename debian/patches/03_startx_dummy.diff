@@ -1,0 +1,13 @@
+Index: xbase-clients/xinit-X11R7.0-1.0.1/startx.cpp
+===================================================================
+--- xbase-clients.orig/xinit-X11R7.0-1.0.1/startx.cpp	2006-02-26 19:14:32.000000000 -0500
++++ xbase-clients/xinit-X11R7.0-1.0.1/startx.cpp	2006-02-26 19:15:10.000000000 -0500
+@@ -207,7 +207,7 @@
+ EOF
+ 	removelist="$displayname $removelist"
+     else
+-        dummy=$((dummy+1));
++        dummy=$(($dummy+1));
+         XAUTH -q -f $xserverauthfile << EOF
+ add :$dummy . $authcookie
+ EOF

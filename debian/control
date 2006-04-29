@@ -1,0 +1,95 @@
+Source: xbase-clients
+Section: x11
+Priority: optional
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Uploaders: David Nusinow <dnusinow@debian.org>, Branden Robinson <branden@debian.org>, Fabio M. Di Nitto <fabbione@fabbione.net>
+Build-Depends: debhelper (>= 4.0.0), pkg-config, libfs-dev (>= 2:1.0.0-1), libpng-dev, libx11-dev (>= 2:1.0.0-1), libxaw7-dev (>= 1:1.0.1-1), libxcursor-dev (>= 1.1.5.2-1), libxext-dev (>= 1:1.0.0-1), libxft-dev (>= 2.1.8.2-6), libxi-dev (>= 1:1.0.0-3), libxkbfile-dev (>= 1:1.0.1-1), libxmuu-dev (>= 1:1.0.1-1), libxrandr-dev (>= 2:1.1.0.2-1), libxrender-dev (>= 1:0.9.0.2-2), libxss-dev (>= 1:1.0.1-1), libxt-dev (>= 1:1.0.0-1), libxtrap-dev (>= 1:1.0.0-1), libxtst-dev (>= 1:1.0.1-1), libxxf86dga-dev (>= 1:1.0.1-1), libxv-dev (>= 1:1.0.1-1), libxxf86vm-dev (>= 1:1.0.0-1), ssh | rsh, x11proto-gl-dev, libgl1-mesa-dev, xbitmaps, quilt
+Standards-Version: 3.6.1.0
+
+Package: xbase-clients
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: x11-common (>= 1:7.0.0)
+Suggests: mesa-utils
+Description: miscellaneous X clients
+ An X client is a program that interfaces with an X server (almost always via
+ the X libraries), and thus with some input and output hardware like a
+ graphics card, monitor, keyboard, and pointing device (such as a mouse).
+ .
+ This package provides a miscellaneous assortment of several dozen X clients
+ that ship with the X Window System, including:
+  - startx and xinit, which initialize X sessions from the command line;
+  - xauth, a tool for controlling access to the X session;
+  - xedit, a text editor;
+  - xbiff, a tool which tells you when you have new email;
+  - xcalc, a scientific calculator desktop accessory;
+  - xclipboard, a tool to manage cut-and-pasted text selections;
+  - xcutsel, which exchanges selection and cut buffer contents;
+  - xconsole, which monitors system console messages;
+  - xditview, a viewer for ditroff output;
+  - xeyes, a demo program in which a pair of eyes track the pointer;
+  - xfd, a tool that displays all the glyphs in a given X font;
+  - xfontsel, a tool for browsing and selecting X fonts;
+  - xhost, a very dangerous program that you should never use;
+  - xkill, a tool for terminating misbehaving X clients;
+  - xload, a monitor for the system load average;
+  - xlogo, a demo program that displays the X logo;
+  - xmag, which magnifies parts of the X screen;
+  - xman, a manual page browser;
+  - xmessage, a tool to display message or dialog boxes;
+  - xrandr, a command-line interface to the RandR extension;
+  - xrefresh, a tool that forces a redraw of the X screen;
+  - xsetroot, a tool for tailoring the appearance of the root window;
+  - xtrapchar, xtrapin, xtrapinfo, xtrapout, xtrapproto, xtrapreset, and
+    xtrapstats, a group of sample clients that use the XTrap extension;
+  - xvidtune, a tool for customizing X server modelines for your monitor;
+  - xwd, a utility for taking window dumps ("screenshots") of the X session;
+  - xwud, a viewer for window dumps created by xwd;
+  - oclock and xclock, graphical clocks;
+  - beforelight, a screen saver;
+  - atobm, a converter from ASCII to X bitmap (.xbm) files;
+  - bitmap, a monochrome bitmap file editor;
+  - bmtoa, a tool that converts a monochrome bitmap to ASCII text;
+  - cxpm and sxpm, tools for checking and viewing X pixmap files;
+  - iceauth, a tool for manipulating ICE protocol authorization records;
+  - xset, a tool for setting miscellaneous X server parameters;
+  - xmodmap, a utility for modifying keymaps and pointer button mappings in X;
+  - xsetmode and xsetpointer, tools for handling X Input devices;
+  - setxkbmap, xkbbell, xkbcomp, xkbevd, xkbprint, xkbvleds, and xkbwatch,
+    tools for managing the X Keyboard Extension (XKB);
+  - xsm, a session manager for X sessions;
+  - smproxy, a session manager proxy for X clients that do not use the X
+    session manager protocol;
+  - xgamma, a tool for querying and setting a monitor's gamma correction;
+  - appres, editres, listres, viewres, and xrdb, which query and update the
+    X resource database;
+  - Xmark, x11perf, and x11perfcomp, tools for benchmarking graphical
+    operations under the X Window System;
+  - fstobdf, which retrieves a font in BDF format from an X font server;
+  - xcmsdb, a device color characteristic utility for the X Color Management
+    System;
+  - xstdcmap, a utility to selectively define standard colormap properties;
+  - xev, an X event displayer;
+  - xfindproxy, a tool to locate X proxy services;
+  - xlsatoms, which lists interned atoms defined on an X server;
+  - xlsclients, which lists client applications running on an X display;
+  - xlsfonts, a server font list displayer;
+  - xprop, a property displayer for X;
+  - xdpyinfo, a display information utility for X;
+  - xwininfo, a window information utility for X;
+  - xvinfo, an Xv extension information utility for X;
+  - ico, an X graphics demo using an animated polyhedron;
+  - dga, a demo program for the DGA extension; and
+  - xgc, an (unfinished) X graphics demo program.
+ .
+ The bitmap, editres, viewres, xbiff, xcalc, xconsole, xditview, xedit,
+ xf86cfg, xman, xsetroot, and xsm programs use bitmap images provided by the
+ xlibs-data package.  xkbcomp uses the XKEYBOARD (XKB) extension configuration
+ data provided by the xlibs package.
+ .
+ (Strictly speaking, atobm does not depend on any X libraries, but it shares a
+ manual page with bitmap and bmtoa, and so is grouped with them in this
+ package.)
+ .
+ This package no longer provides the 'mkfontscale' program; it has instead been
+ moved to xutils.

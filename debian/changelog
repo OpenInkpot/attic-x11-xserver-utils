@@ -1,0 +1,86 @@
+xbase-clients (1:7.0.0-6) UNRELEASED; urgency=low
+
+  * Move xserverrc back to this package from xserver-xorg-core. Thanks
+    Benjamin Mesing. (closes: #365022)
+  * Update smproxy to version 1.0.2
+
+ -- David Nusinow <dnusinow@debian.org>  Sat, 29 Apr 2006 19:21:58 -0400
+
+xbase-clients (1:7.0.0-5) unstable; urgency=low
+
+  * Patch startx so that it points to /etc/X11/xinit for xserverrc and
+    xinitrc. Thanks Vasilis Vasaitis and Bastian Kleineidam.
+  * Move xserverrc back to /etc/X11/xinit
+  * Use --list-missing with dh_install
+
+ -- David Nusinow <dnusinow@debian.org>  Tue, 25 Apr 2006 21:37:22 -0400
+
+xbase-clients (1:7.0.0-4) unstable; urgency=low
+
+  * Add quilt to build-depends.
+
+ -- David Nusinow <dnusinow@debian.org>  Sat, 15 Apr 2006 19:49:02 -0400
+
+xbase-clients (1:7.0.0-3) unstable; urgency=low
+
+  * Remove mention of xorgconfig and xorgcfg in package description. Thanks
+    Daniel Leidert. (closes: #362066)
+  * Add 12_startx_paths.diff to use X11R7 paths for startx and xinit. Thanks
+    Arjan Opmeer. (closes: #357713)
+  * Add libxi-dev to build-depends
+  * Make xbase-clients explicitly pre-depend on x11-common >= 1:7.0.0, rather
+    than implicitly. Thanks Vasilis Vasaitis. (closes: #357713)
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 13 Apr 2006 22:39:46 -0400
+
+xbase-clients (1:7.0.0-2) unstable; urgency=low
+
+  * Upload to unstable
+  * Add build-depends on libgl1-mesa-dev, versioned build-depneds on
+    libdrender-dev, and re-version build-depend on libxft-dev. Thanks Frank
+    Lichtenheld. (closes: #361821)
+
+ -- David Nusinow <dnusinow@debian.org>  Mon, 10 Apr 2006 19:49:23 -0400
+
+xbase-clients (1:7.0.0-1) experimental; urgency=low
+
+  [ Denis Barbier ]
+  * Set XKB base path to /usr/share/X11/xkb.
+
+  [ David Nusinow ]
+  * Update to x11perf 1.4.1 and setxkbmap 1.0.2 upstream releases
+  * Bump version number to match upstream's current katamari release
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 16 Mar 2006 23:06:15 -0500
+
+xbase-clients (1:1.0.1-2) experimental; urgency=low
+
+  * Add an empty /var/lib/xkb directory so that the server loads the correct
+    keymaps. Thanks Silvestre Zabala, Eugene Konev, and Daniel Stone.
+    (closes: #354130)
+  * Port patches from trunk
+    + general/014_startx_hostname_fix.diff
+    + general/015_startx_dummy_fix.diff
+    + general/073_xev_flush_standard_output.diff
+    + general/025c_bitmap_manpage_typo.diff
+    + general/025d_xedit_manpage_typos.diff
+    + general/025e_xvinfo_manpage_typo.diff
+    + general/099r_xlsfonts_do_not_spew_usage_on_connection_error.diff
+    + debian/902_debian_startx_manpage.diff
+    + debian/916_add_XKBPATH_env_variable.diff
+    + general/051_xkb_documentation_updates.diff
+  * Suggest mesa-utils, where glxinfo and glxgears have been moved.
+    Thanks Mike Hommey. (closes: #354246)
+
+ -- David Nusinow <dnusinow@debian.org>  Sat,  4 Mar 2006 18:59:20 -0500
+
+xbase-clients (1:1.0.1-1) experimental; urgency=low
+
+  [ David Nusinow ]
+  * First modular upload to Debian
+
+  [ Eugene Konev ]
+  * Divide packages that we process in debian/rules by category so we can pass
+    the xkb packages the proper configure flags
+
+ -- David Nusinow <dnusinow@debian.org>  Sun, 19 Feb 2006 19:46:46 -0500
