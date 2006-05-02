@@ -1,7 +1,7 @@
-Index: xbase-clients/xinit-X11R7.0-1.0.1/startx.cpp
+Index: xbase-clients/xinit/startx.cpp
 ===================================================================
---- xbase-clients.orig/xinit-X11R7.0-1.0.1/startx.cpp	2006-02-18 14:56:27.000000000 -0500
-+++ xbase-clients/xinit-X11R7.0-1.0.1/startx.cpp	2006-02-26 19:11:55.000000000 -0500
+--- xbase-clients.orig/xinit/startx.cpp	2006-02-18 14:56:27.000000000 -0500
++++ xbase-clients/xinit/startx.cpp	2006-02-26 19:11:55.000000000 -0500
 @@ -172,18 +172,17 @@
  
  #if defined(HAS_COOKIE_MAKER) && defined(MK_COOKIE)

@@ -1,7 +1,7 @@
-Index: xbase-clients/xinit-X11R7.0-1.0.1/xinitrc.cpp
+Index: xbase-clients/xinit/xinitrc.cpp
 ===================================================================
---- xbase-clients.orig/xinit-X11R7.0-1.0.1/xinitrc.cpp	2006-01-30 19:14:59.000000000 -0500
-+++ xbase-clients/xinit-X11R7.0-1.0.1/xinitrc.cpp	2006-02-18 14:50:45.000000000 -0500
+--- xbase-clients.orig/xinit/xinitrc.cpp	2006-01-30 19:14:59.000000000 -0500
++++ xbase-clients/xinit/xinitrc.cpp	2006-02-18 14:50:45.000000000 -0500
 @@ -1,75 +1,9 @@
  XCOMM!SHELL_CMD
  XCOMM $Xorg: xinitrc.cpp,v 1.3 2000/08/17 19:54:30 cpqbld Exp $

@@ -3,10 +3,10 @@ $Id: 902_debian_startx_manpage.diff 867 2005-11-13 16:29:11Z dnusinow $
 Fix the startx manpage to be more correct for our setup; this patch by Branden
 Robinson.
 
-Index: xinit-X11R7.0-1.0.1/startx.man
+Index: xinit/startx.man
 ===================================================================
---- xinit-X11R7.0-1.0.1/startx.man.orig	2005-11-12 16:31:16.000000000 -0500
-+++ xinit-X11R7.0-1.0.1/startx.man	2005-11-13 11:00:34.000000000 -0500
+--- xinit/startx.man.orig	2005-11-12 16:31:16.000000000 -0500
++++ xinit/startx.man	2005-11-13 11:00:34.000000000 -0500
 @@ -74,6 +74,28 @@
  .RE
  #ifdef __SCOMAN__

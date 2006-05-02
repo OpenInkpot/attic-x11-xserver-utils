@@ -1,6 +1,5 @@
 001_debian_xinitrc.diff
 02_startx_hostname.diff
-03_startx_dummy.diff
 04_xev_flush_standard_output.diff
 05_bitmap_manpage_typo.diff
 06_xedit_manpage_typos.diff

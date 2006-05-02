@@ -6,8 +6,10 @@ xbase-clients (1:7.0.0-6) UNRELEASED; urgency=low
   * Update xhost to version 1.0.1
   * Update fstobdf to version 1.0.2
   * Update xdriinfo to version 1.0.1
+  * Update xinit to version 1.0.2
+    * Remove obsolete patch 03_startx_dummy.diff
 
- -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 21:52:30 -0400
+ -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 22:06:17 -0400
 
 xbase-clients (1:7.0.0-5) unstable; urgency=low
 
