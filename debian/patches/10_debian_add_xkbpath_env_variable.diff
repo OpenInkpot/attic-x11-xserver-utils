@@ -46,10 +46,10 @@ Index: xkbcomp-X11R7.0-1.0.1/xkbpath.c
      XkbAddDirectoryToPath(DFLT_XKB_CONFIG_ROOT);
  }
  
-Index: xkbevd-X11R7.0-1.0.1/xkbevd.c
+Index: xkbevd/xkbevd.c
 ===================================================================
---- xkbevd-X11R7.0-1.0.1/xkbevd.c
-+++ xkbevd-X11R7.0-1.0.1/xkbevd.c
+--- xkbevd/xkbevd.c
++++ xkbevd/xkbevd.c
 @@ -471,20 +471,28 @@
      else {
  	file= fopen(cfgFileName,"r");

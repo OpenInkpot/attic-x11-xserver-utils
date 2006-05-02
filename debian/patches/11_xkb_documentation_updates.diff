@@ -7,8 +7,8 @@ This patch by Branden Robinson.
 
 Index: setxkbmap-1.0.2/setxkbmap.man
 ===================================================================
---- setxkbmap-1.0.2/setxkbmap.man.orig	2006-02-18 14:56:06.000000000 -0500
-+++ setxkbmap-1.0.2/setxkbmap.man	2006-02-28 23:24:35.000000000 -0500
+--- setxkbmap-1.0.2/setxkbmap.man.orig	2006-05-01 22:05:38.000000000 -0400
++++ setxkbmap-1.0.2/setxkbmap.man	2006-05-01 22:20:42.000000000 -0400
 @@ -1,120 +1,167 @@
  .\"
  .\" $XFree86: xc/programs/setxkbmap/setxkbmap.man,v 3.6 2003/01/20 04:15:08 dawes Exp $
@@ -284,8 +284,8 @@ Index: setxkbmap-1.0.2/setxkbmap.man
 +Erik Fortune, Silicon Graphics
 Index: xkbcomp-X11R7.0-1.0.1/README.config
 ===================================================================
---- xkbcomp-X11R7.0-1.0.1/README.config.orig	2006-02-26 19:24:06.000000000 -0500
-+++ xkbcomp-X11R7.0-1.0.1/README.config	2006-02-28 23:24:35.000000000 -0500
+--- xkbcomp-X11R7.0-1.0.1/README.config.orig	2006-05-01 22:05:38.000000000 -0400
++++ xkbcomp-X11R7.0-1.0.1/README.config	2006-05-01 22:20:42.000000000 -0400
 @@ -100,7 +100,7 @@
  command loading the same keyboard mapping would look like:
  
@@ -297,8 +297,8 @@ Index: xkbcomp-X11R7.0-1.0.1/README.config
  
 Index: xkbcomp-X11R7.0-1.0.1/xkbcomp.man
 ===================================================================
---- xkbcomp-X11R7.0-1.0.1/xkbcomp.man.orig	2006-02-18 14:55:31.000000000 -0500
-+++ xkbcomp-X11R7.0-1.0.1/xkbcomp.man	2006-02-28 23:24:35.000000000 -0500
+--- xkbcomp-X11R7.0-1.0.1/xkbcomp.man.orig	2006-05-01 22:05:38.000000000 -0400
++++ xkbcomp-X11R7.0-1.0.1/xkbcomp.man	2006-05-01 22:20:42.000000000 -0400
 @@ -5,105 +5,201 @@
  .\"
  .\" $XFree86: xc/programs/xkbcomp/xkbcomp.man,v 1.11 2003/07/28 21:57:02 herrb Exp $
@@ -575,15 +575,15 @@ Index: xkbcomp-X11R7.0-1.0.1/xkbcomp.man
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
-Index: xkbevd-X11R7.0-1.0.1/xkbevd.man
+Index: xkbevd/xkbevd.man
 ===================================================================
---- xkbevd-X11R7.0-1.0.1/xkbevd.man.orig	2006-02-18 14:55:16.000000000 -0500
-+++ xkbevd-X11R7.0-1.0.1/xkbevd.man	2006-02-28 23:24:35.000000000 -0500
-@@ -2,98 +2,167 @@
+--- xkbevd/xkbevd.man.orig	2006-05-01 22:17:33.000000000 -0400
++++ xkbevd/xkbevd.man	2006-05-01 22:20:42.000000000 -0400
+@@ -3,98 +3,167 @@
  .\"
  .\" $XFree86: xc/programs/xkbevd/xkbevd.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
  .\"
--.TH XKBCOMP 1 __xorgversion__
+-.TH XKBEVD 1 __xorgversion__
 +.TH xkbevd __mansuffix__ __xorgversion__
  .SH NAME
  xkbevd \- XKB event daemon
@@ -821,8 +821,8 @@ Index: xkbevd-X11R7.0-1.0.1/xkbevd.man
  Erik Fortune, Silicon Graphics
 Index: xkbprint-X11R7.0-1.0.1/xkbprint.man
 ===================================================================
---- xkbprint-X11R7.0-1.0.1/xkbprint.man.orig	2006-02-18 14:56:31.000000000 -0500
-+++ xkbprint-X11R7.0-1.0.1/xkbprint.man	2006-02-28 23:24:35.000000000 -0500
+--- xkbprint-X11R7.0-1.0.1/xkbprint.man.orig	2006-04-29 19:23:24.000000000 -0400
++++ xkbprint-X11R7.0-1.0.1/xkbprint.man	2006-05-01 22:20:42.000000000 -0400
 @@ -2,112 +2,198 @@
  .\"
  .\" $XFree86: xc/programs/xkbprint/xkbprint.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
