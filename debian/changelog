@@ -18,8 +18,9 @@ xbase-clients (1:7.0.0-6) UNRELEASED; urgency=low
   * Update xmodmap to version 1.0.1
   * Update xrandr to version 1.0.2
   * Update xrdb to version 1.0.2
+  * Update xset to version 1.0.2
 
- -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 23:25:59 -0400
+ -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 23:28:59 -0400
 
 xbase-clients (1:7.0.0-5) unstable; urgency=low
 
