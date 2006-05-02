@@ -282,10 +282,10 @@ Index: setxkbmap-1.0.2/setxkbmap.man
 +for a full statement of rights and permissions.
 +.SH AUTHOR
 +Erik Fortune, Silicon Graphics
-Index: xkbcomp-X11R7.0-1.0.1/README.config
+Index: xkbcomp/README.config
 ===================================================================
---- xkbcomp-X11R7.0-1.0.1/README.config.orig	2006-05-01 22:05:38.000000000 -0400
-+++ xkbcomp-X11R7.0-1.0.1/README.config	2006-05-01 22:20:42.000000000 -0400
+--- xkbcomp/README.config.orig	2006-05-01 22:05:38.000000000 -0400
++++ xkbcomp/README.config	2006-05-01 22:20:42.000000000 -0400
 @@ -100,7 +100,7 @@
  command loading the same keyboard mapping would look like:
  
@@ -295,10 +295,10 @@ Index: xkbcomp-X11R7.0-1.0.1/README.config
  
  2.3  Even More Advanced Configuration
  
-Index: xkbcomp-X11R7.0-1.0.1/xkbcomp.man
+Index: xkbcomp/xkbcomp.man
 ===================================================================
---- xkbcomp-X11R7.0-1.0.1/xkbcomp.man.orig	2006-05-01 22:05:38.000000000 -0400
-+++ xkbcomp-X11R7.0-1.0.1/xkbcomp.man	2006-05-01 22:20:42.000000000 -0400
+--- xkbcomp/xkbcomp.man.orig	2006-05-01 22:05:38.000000000 -0400
++++ xkbcomp/xkbcomp.man	2006-05-01 22:20:42.000000000 -0400
 @@ -5,105 +5,201 @@
  .\"
  .\" $XFree86: xc/programs/xkbcomp/xkbcomp.man,v 1.11 2003/07/28 21:57:02 herrb Exp $
