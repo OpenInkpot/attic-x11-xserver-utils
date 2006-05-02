@@ -9,8 +9,9 @@ xbase-clients (1:7.0.0-6) UNRELEASED; urgency=low
   * Update xinit to version 1.0.2
     * Remove obsolete patch 03_startx_dummy.diff
   * Update xkbevd to version 1.0.2
+  * Update xman to version 1.0.2
 
- -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 22:21:29 -0400
+ -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 22:26:06 -0400
 
 xbase-clients (1:7.0.0-5) unstable; urgency=low
 
