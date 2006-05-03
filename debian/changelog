@@ -1,4 +1,4 @@
-xbase-clients (1:7.0.1-1) UNRELEASED; urgency=low
+xbase-clients (1:7.0.1-1) unstable; urgency=low
 
   * Move xserverrc back to this package from xserver-xorg-core. Thanks
     Benjamin Mesing. (closes: #365022)
@@ -20,7 +20,7 @@ xbase-clients (1:7.0.1-1) UNRELEASED; urgency=low
   * Update xrdb to version 1.0.2
   * Update xset to version 1.0.2
 
- -- David Nusinow <dnusinow@debian.org>  Mon,  1 May 2006 23:41:58 -0400
+ -- David Nusinow <dnusinow@debian.org>  Tue,  2 May 2006 22:58:57 -0400
 
 xbase-clients (1:7.0.0-5) unstable; urgency=low
 
