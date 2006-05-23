@@ -48,6 +48,7 @@ build-stamp:
 		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
 		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
 		             --infodir=\$${prefix}/share/info $(confflags) \
+		             --disable-xprint \
 		             CFLAGS="$(CFLAGS)" && \
 		$(MAKE)) || exit 1; \
 	done
