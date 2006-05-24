@@ -1,7 +1,7 @@
-Index: xbase-clients/bitmap-X11R7.0-1.0.1/bitmap.man
+Index: xbase-clients/bitmap/bitmap.man
 ===================================================================
---- xbase-clients.orig/bitmap-X11R7.0-1.0.1/bitmap.man	2006-02-18 14:55:39.000000000 -0500
-+++ xbase-clients/bitmap-X11R7.0-1.0.1/bitmap.man	2006-02-26 20:35:50.000000000 -0500
+--- xbase-clients.orig/bitmap/bitmap.man	2006-02-18 14:55:39.000000000 -0500
++++ xbase-clients/bitmap/bitmap.man	2006-02-26 20:35:50.000000000 -0500
 @@ -162,7 +162,7 @@
  .SH USAGE 
  \fIBitmap\fP displays grid in which each square represents a single
