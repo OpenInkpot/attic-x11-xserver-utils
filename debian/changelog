@@ -1,5 +1,6 @@
 xbase-clients (1:7.0.1-3) unstable; urgency=low
 
+  [ Steve Langasek ]
   * Drop broken build-dependency on xprint-utils, no thanks to anonymous
     someone.
   * Pass --disable-xprint to invocations of configure instead, which is
