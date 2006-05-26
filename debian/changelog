@@ -8,6 +8,9 @@ xbase-clients (1:7.1.ds-1) unstable; urgency=low
     package to consistently build *without* xprint support, instead of
     autodetecting (and possibly failing) based on whether libxp-dev is
     installed.  Properly closes: #366275.
+  * Also call PKG_PROG_PKG_CONFIG explicitly from xdbebizzy's
+    configure.ac, since otherwise --disable-xprint leaves us without
+    PKG_CONFIG defined.
 
   [ David Nusinow ]
   * This update should include all the apps released with X11R7.1. Version the
