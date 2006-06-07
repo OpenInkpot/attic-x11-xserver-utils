@@ -17,8 +17,10 @@ xbase-clients (1:7.1.ds-1) unstable; urgency=low
     package to match this.
   * Update bitmap to 1.0.2
   * Update xcursorgen to 1.0.1
+  * Autoreconf everything in order to ensure that manpages have the proper
+    section
 
- -- David Nusinow <dnusinow@debian.org>  Tue, 23 May 2006 22:09:32 -0400
+ -- David Nusinow <dnusinow@debian.org>  Wed,  7 Jun 2006 00:23:15 -0400
 
 xbase-clients (1:7.0.1-2) unstable; urgency=low
 
