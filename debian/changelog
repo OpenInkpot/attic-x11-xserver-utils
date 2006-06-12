@@ -1,4 +1,4 @@
-xbase-clients (1:7.1.ds-1) UNRELEASED; urgency=low
+xbase-clients (1:7.1.ds-1) unstable; urgency=low
 
   [ Steve Langasek ]
   * Drop broken build-dependency on xprint-utils, no thanks to anonymous
@@ -24,7 +24,7 @@ xbase-clients (1:7.1.ds-1) UNRELEASED; urgency=low
   * Bump standards version to 3.7.2.0
   * Bump debhelper compat to 5
 
- -- David Nusinow <dnusinow@debian.org>  Sun, 11 Jun 2006 21:51:33 -0400
+ -- David Nusinow <dnusinow@debian.org>  Sun, 11 Jun 2006 21:51:54 -0400
 
 xbase-clients (1:7.0.1-2) unstable; urgency=low
 
