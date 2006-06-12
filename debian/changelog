@@ -21,8 +21,10 @@ xbase-clients (1:7.1.ds-1) UNRELEASED; urgency=low
     section
   * Update 11_xkb_documentation_updates.diff to not use __manpagesuffix__
     imakeism
+  * Bump standards version to 3.7.2.0
+  * Bump debhelper compat to 5
 
- -- David Nusinow <dnusinow@debian.org>  Sun, 11 Jun 2006 21:12:22 -0400
+ -- David Nusinow <dnusinow@debian.org>  Sun, 11 Jun 2006 21:51:33 -0400
 
 xbase-clients (1:7.0.1-2) unstable; urgency=low
 
