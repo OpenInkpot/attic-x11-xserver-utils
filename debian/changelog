@@ -1,4 +1,4 @@
-xbase-clients (1:7.1.ds-1) unstable; urgency=low
+xbase-clients (1:7.1.ds-1) UNRELEASED; urgency=low
 
   [ Steve Langasek ]
   * Drop broken build-dependency on xprint-utils, no thanks to anonymous
@@ -19,8 +19,10 @@ xbase-clients (1:7.1.ds-1) unstable; urgency=low
   * Update xcursorgen to 1.0.1
   * Autoreconf everything in order to ensure that manpages have the proper
     section
+  * Update 11_xkb_documentation_updates.diff to not use __manpagesuffix__
+    imakeism
 
- -- David Nusinow <dnusinow@debian.org>  Wed,  7 Jun 2006 00:23:15 -0400
+ -- David Nusinow <dnusinow@debian.org>  Sun, 11 Jun 2006 21:12:22 -0400
 
 xbase-clients (1:7.0.1-2) unstable; urgency=low
 

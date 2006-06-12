@@ -7,14 +7,14 @@ This patch by Branden Robinson.
 
 Index: setxkbmap-1.0.2/setxkbmap.man
 ===================================================================
---- setxkbmap-1.0.2/setxkbmap.man.orig	2006-05-01 22:05:38.000000000 -0400
-+++ setxkbmap-1.0.2/setxkbmap.man	2006-05-01 22:20:42.000000000 -0400
+--- setxkbmap-1.0.2/setxkbmap.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ setxkbmap-1.0.2/setxkbmap.man	2006-06-11 21:08:20.000000000 -0400
 @@ -1,120 +1,167 @@
  .\"
  .\" $XFree86: xc/programs/setxkbmap/setxkbmap.man,v 3.6 2003/01/20 04:15:08 dawes Exp $
  .\"
 -.TH SETXKBMAP 1 __xorgversion__
-+.TH setxkbmap __mansuffix__ __xorgversion__
++.TH setxkbmap 1 __xorgversion__
  .SH NAME
 -setxkbmap
 -\- set the keyboard using the X Keyboard Extension
@@ -162,7 +162,7 @@ Index: setxkbmap-1.0.2/setxkbmap.man
 -.TP 8
 +Print component names in a format
 +acceptable by
-+.BR xkbcomp (__mansuffix__)
++.BR xkbcomp (1)
 +(an XKB keymap compiler) and exit.
 +This option is useful for testing, or when one needs to run both
 +.B setxkbmap
@@ -267,25 +267,25 @@ Index: setxkbmap-1.0.2/setxkbmap.man
  .SH FILES
  .I __projectroot__/lib/X11/xkb
 +.SH "SEE ALSO"
-+.BR X (__miscmansuffix__),
-+.BR xkbbell (__mansuffix__),
-+.BR xkbcomp (__mansuffix__),
-+.BR xkbevd (__mansuffix__),
-+.BR xkbprint (__mansuffix__),
-+.BR xkbvleds (__mansuffix__),
-+.BR xkbwatch  (__mansuffix__)
++.BR X (7),
++.BR xkbbell (1),
++.BR xkbcomp (1),
++.BR xkbevd (1),
++.BR xkbprint (1),
++.BR xkbvleds (1),
++.BR xkbwatch  (1)
 +.SH COPYRIGHT
 +Copyright 1994, Silicon Graphics Computer Systems and X Consortium, Inc.
 +.br
 +See
-+.BR X (__miscmansuffix__)
++.BR X (7)
 +for a full statement of rights and permissions.
 +.SH AUTHOR
 +Erik Fortune, Silicon Graphics
 Index: xkbcomp/README.config
 ===================================================================
---- xkbcomp/README.config.orig	2006-05-01 22:05:38.000000000 -0400
-+++ xkbcomp/README.config	2006-05-01 22:20:42.000000000 -0400
+--- xkbcomp/README.config.orig	2006-06-11 21:04:12.000000000 -0400
++++ xkbcomp/README.config	2006-06-11 21:06:06.000000000 -0400
 @@ -100,7 +100,7 @@
  command loading the same keyboard mapping would look like:
  
@@ -297,14 +297,14 @@ Index: xkbcomp/README.config
  
 Index: xkbcomp/xkbcomp.man
 ===================================================================
---- xkbcomp/xkbcomp.man.orig	2006-05-01 22:05:38.000000000 -0400
-+++ xkbcomp/xkbcomp.man	2006-05-01 22:20:42.000000000 -0400
+--- xkbcomp/xkbcomp.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ xkbcomp/xkbcomp.man	2006-06-11 21:09:21.000000000 -0400
 @@ -5,105 +5,201 @@
  .\"
  .\" $XFree86: xc/programs/xkbcomp/xkbcomp.man,v 1.11 2003/07/28 21:57:02 herrb Exp $
  .\"
 -.TH XKBCOMP 1 __xorgversion__
-+.TH xkbcomp __mansuffix__ __xorgversion__
++.TH xkbcomp 1 __xorgversion__
  .SH NAME
  xkbcomp \- compile XKB keyboard description
  .SH SYNOPSIS
@@ -559,32 +559,32 @@ Index: xkbcomp/xkbcomp.man
 +extension).
  .SH "SEE ALSO"
 -X(__miscmansuffix__)
-+.BR X (__miscmansuffix__),
-+.BR setxkbmap (__mansuffix__),
-+.BR xkbbell (__mansuffix__),
-+.BR xkbevd (__mansuffix__),
-+.BR xkbprint (__mansuffix__),
-+.BR xkbvleds (__mansuffix__),
-+.BR xkbwatch (__mansuffix__)
++.BR X (7),
++.BR setxkbmap (1),
++.BR xkbbell (1),
++.BR xkbevd (1),
++.BR xkbprint (1),
++.BR xkbvleds (1),
++.BR xkbwatch (1)
  .SH COPYRIGHT
  Copyright 1994, Silicon Graphics Computer Systems and X Consortium, Inc.
  .br
 -See \fIX(__miscmansuffix__)\fP for a full statement of rights and permissions.
 +See
-+.BR X (__miscmansuffix__)
++.BR X (7)
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
 Index: xkbevd/xkbevd.man
 ===================================================================
---- xkbevd/xkbevd.man.orig	2006-05-01 22:17:33.000000000 -0400
-+++ xkbevd/xkbevd.man	2006-05-01 22:20:42.000000000 -0400
+--- xkbevd/xkbevd.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ xkbevd/xkbevd.man	2006-06-11 21:10:33.000000000 -0400
 @@ -3,98 +3,167 @@
  .\"
  .\" $XFree86: xc/programs/xkbevd/xkbevd.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
  .\"
 -.TH XKBEVD 1 __xorgversion__
-+.TH xkbevd __mansuffix__ __xorgversion__
++.TH xkbevd 1 __xorgversion__
  .SH NAME
  xkbevd \- XKB event daemon
  .SH SYNOPSIS
@@ -601,7 +601,7 @@ Index: xkbevd/xkbevd.man
 +present it here as a rough prototype for developers, not as a general
 +purpose tool for end users.
 +Something like this might make a suitable replacement for
-+.BR xev (__mansuffix__);
++.BR xev (1);
 +I'm not signing up, mind you, but it's an interesting
 +idea.
  .PP
@@ -799,13 +799,13 @@ Index: xkbevd/xkbevd.man
 +cause more output, to a point.
  .SH "SEE ALSO"
 -X(__miscmansuffix__)
-+.BR X (__miscmansuffix__),
-+.BR setxkbmap (__mansuffix__),
-+.BR xkbbell (__mansuffix__),
-+.BR xkbcomp (__mansuffix__),
-+.BR xkbprint (__mansuffix__),
-+.BR xkbvleds (__mansuffix__),
-+.BR xkbwatch (__mansuffix__)
++.BR X (7),
++.BR setxkbmap (1),
++.BR xkbbell (1),
++.BR xkbcomp (1),
++.BR xkbprint (1),
++.BR xkbvleds (1),
++.BR xkbwatch (1)
  .SH COPYRIGHT
 -Copyright 1995, Silicon Graphics Computer Systems
 -Copyright 1995, 1998  The Open Group
@@ -815,20 +815,20 @@ Index: xkbevd/xkbevd.man
  .br
 -See \fIX(__miscmansuffix__)\fP for a full statement of rights and permissions.
 +See
-+.BR X (__miscmansuffix__)
++.BR X (7)
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
 Index: xkbprint-X11R7.0-1.0.1/xkbprint.man
 ===================================================================
---- xkbprint-X11R7.0-1.0.1/xkbprint.man.orig	2006-04-29 19:23:24.000000000 -0400
-+++ xkbprint-X11R7.0-1.0.1/xkbprint.man	2006-05-01 22:20:42.000000000 -0400
+--- xkbprint-X11R7.0-1.0.1/xkbprint.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ xkbprint-X11R7.0-1.0.1/xkbprint.man	2006-06-11 21:11:14.000000000 -0400
 @@ -2,112 +2,198 @@
  .\"
  .\" $XFree86: xc/programs/xkbprint/xkbprint.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
  .\"
 -.TH XKBPRINT 1 __xorgversion__
-+.TH xkbprint __mansuffix__ __xorgversion__
++.TH xkbprint 1 __xorgversion__
  .SH NAME
  xkbprint \- print an XKB keyboard description
  .SH SYNOPSIS
@@ -1083,13 +1083,13 @@ Index: xkbprint-X11R7.0-1.0.1/xkbprint.man
 +warnings).
  .SH "SEE ALSO"
 -X(__miscmansuffix__),xkbcomp(1)
-+.BR X (__miscmansuffix__),
-+.BR setxkbmap (__mansuffix__),
-+.BR xkbbell (__mansuffix__),
-+.BR xkbcomp (__mansuffix__),
-+.BR xkbevd (__mansuffix__),
-+.BR xkbvleds (__mansuffix__),
-+.BR xkbwatch (__mansuffix__)
++.BR X (7),
++.BR setxkbmap (1),
++.BR xkbbell (1),
++.BR xkbcomp (1),
++.BR xkbevd (1),
++.BR xkbvleds (1),
++.BR xkbwatch (1)
  .SH COPYRIGHT
  Copyright 1995, Silicon Graphics Computer Systems
 -Copyright 1995, 1998  The Open Group
@@ -1098,7 +1098,7 @@ Index: xkbprint-X11R7.0-1.0.1/xkbprint.man
 +Copyright 1995, 1998 The Open Group
 +.br
 +See
-+.BR X (__miscmansuffix__)
++.BR X (7)
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
