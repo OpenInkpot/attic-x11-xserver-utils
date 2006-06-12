@@ -3632,7 +3632,7 @@ fi
 
 # Checks for pkg-config packages
 
-if test "x$use_xprint = xyes" ; then
+if test x$use_xprint = xyes ; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for XDBEDIZZY" >&5
