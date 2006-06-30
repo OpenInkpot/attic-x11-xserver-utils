@@ -1,3 +1,13 @@
+xbase-clients (1:7.1.ds-2) unstable; urgency=high
+
+  * Security update. Fix for setuid privledge escalation vulernabilities in
+    xinit, xf86dga, and xload. See
+    http://lists.freedesktop.org/archives/xorg/2006-June/016146.html for the
+    full advisory. This package applies the patches for the 7.0 release of
+    those apps.
+
+ -- David Nusinow <dnusinow@debian.org>  Fri, 30 Jun 2006 01:10:17 -0400
+
 xbase-clients (1:7.1.ds-1) unstable; urgency=low
 
   [ Steve Langasek ]
