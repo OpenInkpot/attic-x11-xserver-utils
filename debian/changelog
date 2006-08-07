@@ -1,10 +1,22 @@
-xbase-clients (1:7.1.ds-3) unstable; urgency=low
+xbase-clients (1:7.1.ds-3) UNRELEASED; urgency=low
 
+  [ Branden Robinson ]
   * Patch xprop to stop segfaulting when deleted atoms are requested.
     Committed upstream as git 47514347db811d002e7f3ca05d390565bc3ee5e5.
     (Closes: #197526)
 
- -- Branden Robinson <branden@debian.org>  Wed, 26 Jul 2006 23:32:23 -0400
+  [ Denis Barbier ]
+  * Acknowledge NMU, thanks dann frazier. (closes: #363198)
+
+ -- Denis Barbier <barbier@debian.org>  Mon,  7 Aug 2006 21:30:25 +0200
+
+xbase-clients (1:7.1.ds-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix implicit pointer conversion in xconsole.c (closes: #363198)
+    (Was fixed in 1:7.1.ds-1.1 NMU, but silently dropped in 1:7.1.ds-2 MU)
+
+ -- dann frazier <dannf@debian.org>  Sat, 29 Jul 2006 13:59:40 -0600
 
 xbase-clients (1:7.1.ds-2) unstable; urgency=high
 

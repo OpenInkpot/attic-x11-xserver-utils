@@ -1,0 +1,10 @@
+--- xbase-clients-7.1.ds.orig/xconsole/xconsole.c	2006-05-23 20:11:37.000000000 -0600
++++ xbase-clients-7.1.ds/xconsole/xconsole.c	2006-06-17 14:11:47.000000000 -0600
+@@ -28,6 +28,7 @@
+ 
+ /* $XFree86: xc/programs/xconsole/xconsole.c,v 3.31tsi Exp $ */
+ 
++#define _XOPEN_SOURCE
+ #include <X11/Intrinsic.h>
+ #include <X11/StringDefs.h>
+ #include <X11/Xatom.h>

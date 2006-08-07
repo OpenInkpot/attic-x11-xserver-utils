@@ -9,5 +9,6 @@
 10_debian_add_xkbpath_env_variable.diff -p0
 11_xkb_documentation_updates.diff -p0
 12_startx_paths.diff
+13_xconsole_implicit_pointer_conversion.diff
 pkgconfig_naughtiness -p0
 14_SECURITY_setuid.diff
