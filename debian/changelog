@@ -7,6 +7,8 @@ xbase-clients (1:7.1.ds-3) UNRELEASED; urgency=low
 
   [ Denis Barbier ]
   * Acknowledge NMU, thanks dann frazier. (closes: #363198)
+  * The rsh program is required to build xsm.  Replace Build-Depends: ssh | rsh
+    by Build-Depends: openssh-client | ssh
 
  -- Denis Barbier <barbier@debian.org>  Mon,  7 Aug 2006 21:30:25 +0200
 
