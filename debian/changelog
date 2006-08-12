@@ -1,4 +1,4 @@
-xbase-clients (1:7.1.ds-3) UNRELEASED; urgency=low
+xbase-clients (1:7.1.ds-3) unstable; urgency=low
 
   [ Branden Robinson ]
   * Patch xprop to stop segfaulting when deleted atoms are requested.
@@ -14,7 +14,7 @@ xbase-clients (1:7.1.ds-3) UNRELEASED; urgency=low
     All XKB related programs share now the same build system, so factor
     commands in debian/rules.
 
- -- Denis Barbier <barbier@debian.org>  Mon,  7 Aug 2006 21:30:25 +0200
+ -- Denis Barbier <barbier@debian.org>  Sat, 12 Aug 2006 15:08:47 +0200
 
 xbase-clients (1:7.1.ds-2.1) unstable; urgency=low
 
