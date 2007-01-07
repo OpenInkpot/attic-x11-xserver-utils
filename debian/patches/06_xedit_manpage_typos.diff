@@ -1,7 +1,7 @@
-Index: xbase-clients/xedit-X11R7.0-1.0.1/xedit.man
+Index: xbase-clients/xedit/xedit.man
 ===================================================================
---- xbase-clients.orig/xedit-X11R7.0-1.0.1/xedit.man	2006-02-18 14:56:14.000000000 -0500
-+++ xbase-clients/xedit-X11R7.0-1.0.1/xedit.man	2006-02-26 20:37:32.000000000 -0500
+--- xbase-clients.orig/xedit/xedit.man	2006-02-18 14:56:14.000000000 -0500
++++ xbase-clients/xedit/xedit.man	2006-02-26 20:37:32.000000000 -0500
 @@ -291,7 +291,7 @@
  .B autoReplace (\fPClass \fBReplace)
  This resource is useful to automatically correct common misspelling errors, but

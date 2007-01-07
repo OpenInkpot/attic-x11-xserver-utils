@@ -9,10 +9,10 @@ on xlibs are fixed.  This patch by Denis Barbier.
 
 This patch will not be submitted upstream.
 
-Index: setxkbmap-1.0.2/setxkbmap.c
+Index: setxkbmap/setxkbmap.c
 ===================================================================
---- setxkbmap-1.0.2/setxkbmap.c
-+++ setxkbmap-1.0.2/setxkbmap.c
+--- setxkbmap/setxkbmap.c
++++ setxkbmap/setxkbmap.c
 @@ -318,9 +318,13 @@
  int 	i;
  Bool	ok;

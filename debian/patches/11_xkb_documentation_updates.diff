@@ -5,10 +5,10 @@ xkbcomp's README.config file.
 
 This patch by Branden Robinson.
 
-Index: setxkbmap-1.0.2/setxkbmap.man
+Index: setxkbmap/setxkbmap.man
 ===================================================================
---- setxkbmap-1.0.2/setxkbmap.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ setxkbmap-1.0.2/setxkbmap.man	2006-06-11 21:08:20.000000000 -0400
+--- setxkbmap/setxkbmap.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ setxkbmap/setxkbmap.man	2006-06-11 21:08:20.000000000 -0400
 @@ -1,120 +1,167 @@
  .\"
  .\" $XFree86: xc/programs/setxkbmap/setxkbmap.man,v 3.6 2003/01/20 04:15:08 dawes Exp $
@@ -819,10 +819,10 @@ Index: xkbevd/xkbevd.man
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
-Index: xkbprint-X11R7.0-1.0.1/xkbprint.man
+Index: xkbprint/xkbprint.man
 ===================================================================
---- xkbprint-X11R7.0-1.0.1/xkbprint.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ xkbprint-X11R7.0-1.0.1/xkbprint.man	2006-06-11 21:11:14.000000000 -0400
+--- xkbprint/xkbprint.man.orig	2006-06-11 21:04:12.000000000 -0400
++++ xkbprint/xkbprint.man	2006-06-11 21:11:14.000000000 -0400
 @@ -2,112 +2,198 @@
  .\"
  .\" $XFree86: xc/programs/xkbprint/xkbprint.man,v 1.7 2001/01/27 18:21:16 dawes Exp $

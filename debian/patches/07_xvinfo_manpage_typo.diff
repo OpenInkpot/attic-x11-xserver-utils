@@ -1,7 +1,7 @@
-Index: xbase-clients/xvinfo-X11R7.0-1.0.1/xvinfo.man
+Index: xbase-clients/xvinfo/xvinfo.man
 ===================================================================
---- xbase-clients.orig/xvinfo-X11R7.0-1.0.1/xvinfo.man	2006-02-18 14:55:11.000000000 -0500
-+++ xbase-clients/xvinfo-X11R7.0-1.0.1/xvinfo.man	2006-02-26 20:38:32.000000000 -0500
+--- xbase-clients.orig/xvinfo/xvinfo.man	2006-02-18 14:55:11.000000000 -0500
++++ xbase-clients/xvinfo/xvinfo.man	2006-02-26 20:38:32.000000000 -0500
 @@ -11,7 +11,7 @@
  .PP
  .B xvinfo

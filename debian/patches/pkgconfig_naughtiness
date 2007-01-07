@@ -1,7 +1,7 @@
-Index: xdbedizzy-X11R7.0-1.0.1/configure.ac
+Index: xdbedizzy/configure.ac
 ===================================================================
---- xdbedizzy-X11R7.0-1.0.1/configure.ac	(revision 2182)
-+++ xdbedizzy-X11R7.0-1.0.1/configure.ac	(working copy)
+--- xdbedizzy/configure.ac	(revision 2182)
++++ xdbedizzy/configure.ac	(working copy)
 @@ -35,6 +35,10 @@
  
  AC_ARG_ENABLE(xprint, AC_HELP_STRING([--enable-xprint], [Enable XPrint support]),
