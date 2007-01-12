@@ -49,8 +49,7 @@ build-stamp:
 		             --infodir=\$${prefix}/share/info $(confflags) \
 		             --disable-xprint \
 		             CFLAGS="$(CFLAGS)" \
-			     MANCONF="/etc/manpath.config" \
-			     RSH=/usr/bin/ssh && \
+			     MANCONF="/etc/manpath.config" && \
 		$(MAKE)) || exit 1; \
 	done
 
