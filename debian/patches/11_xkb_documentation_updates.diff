@@ -7,8 +7,8 @@ This patch by Branden Robinson.
 
 Index: setxkbmap/setxkbmap.man
 ===================================================================
---- setxkbmap/setxkbmap.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ setxkbmap/setxkbmap.man	2006-06-11 21:08:20.000000000 -0400
+--- setxkbmap/setxkbmap.man.orig	2007-02-08 17:12:52.000000000 +0100
++++ setxkbmap/setxkbmap.man	2007-02-08 17:14:08.000000000 +0100
 @@ -1,120 +1,167 @@
  .\"
  .\" $XFree86: xc/programs/setxkbmap/setxkbmap.man,v 3.6 2003/01/20 04:15:08 dawes Exp $
@@ -44,9 +44,10 @@ Index: setxkbmap/setxkbmap.man
 +parameters specified on the command line.
  An XKB keymap is constructed from a number of components which are compiled
 -only as needed.  The source for all of the components can be found in
+-.IR __projectroot__/lib/X11/xkb .
 +only as needed.
 +The source for all of the components can be found in
- .IR __projectroot__/lib/X11/xkb .
++.IR __XKBCONFIGROOT__ .
 +.PP
 +If one or more non\-option arguments are provided, the first is interpreted
 +as a layout.
@@ -265,7 +266,8 @@ Index: setxkbmap/setxkbmap.man
 +on the client side, and then uploads the map to the X server at
 +.IR $DISPLAY .
  .SH FILES
- .I __projectroot__/lib/X11/xkb
+-.I __projectroot__/lib/X11/xkb
++.I __XKBCONFIGROOT__
 +.SH "SEE ALSO"
 +.BR X (7),
 +.BR xkbbell (1),
@@ -284,8 +286,8 @@ Index: setxkbmap/setxkbmap.man
 +Erik Fortune, Silicon Graphics
 Index: xkbcomp/README.config
 ===================================================================
---- xkbcomp/README.config.orig	2006-06-11 21:04:12.000000000 -0400
-+++ xkbcomp/README.config	2006-06-11 21:06:06.000000000 -0400
+--- xkbcomp/README.config.orig	2007-02-08 17:12:52.000000000 +0100
++++ xkbcomp/README.config	2007-02-08 17:14:08.000000000 +0100
 @@ -100,7 +100,7 @@
  command loading the same keyboard mapping would look like:
  
@@ -297,8 +299,8 @@ Index: xkbcomp/README.config
  
 Index: xkbcomp/xkbcomp.man
 ===================================================================
---- xkbcomp/xkbcomp.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ xkbcomp/xkbcomp.man	2006-06-11 21:09:21.000000000 -0400
+--- xkbcomp/xkbcomp.man.orig	2007-02-08 17:12:52.000000000 +0100
++++ xkbcomp/xkbcomp.man	2007-02-08 17:14:08.000000000 +0100
 @@ -5,105 +5,201 @@
  .\"
  .\" $XFree86: xc/programs/xkbcomp/xkbcomp.man,v 1.11 2003/07/28 21:57:02 herrb Exp $
@@ -577,8 +579,8 @@ Index: xkbcomp/xkbcomp.man
  Erik Fortune, Silicon Graphics
 Index: xkbevd/xkbevd.man
 ===================================================================
---- xkbevd/xkbevd.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ xkbevd/xkbevd.man	2006-06-11 21:10:33.000000000 -0400
+--- xkbevd/xkbevd.man.orig	2007-02-08 17:12:52.000000000 +0100
++++ xkbevd/xkbevd.man	2007-02-08 17:14:08.000000000 +0100
 @@ -3,98 +3,167 @@
  .\"
  .\" $XFree86: xc/programs/xkbevd/xkbevd.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
@@ -821,8 +823,8 @@ Index: xkbevd/xkbevd.man
  Erik Fortune, Silicon Graphics
 Index: xkbprint/xkbprint.man
 ===================================================================
---- xkbprint/xkbprint.man.orig	2006-06-11 21:04:12.000000000 -0400
-+++ xkbprint/xkbprint.man	2006-06-11 21:11:14.000000000 -0400
+--- xkbprint/xkbprint.man.orig	2007-02-08 17:12:52.000000000 +0100
++++ xkbprint/xkbprint.man	2007-02-08 17:14:08.000000000 +0100
 @@ -2,112 +2,198 @@
  .\"
  .\" $XFree86: xc/programs/xkbprint/xkbprint.man,v 1.7 2001/01/27 18:21:16 dawes Exp $
@@ -1102,3 +1104,17 @@ Index: xkbprint/xkbprint.man
 +for a full statement of rights and permissions.
  .SH AUTHOR
  Erik Fortune, Silicon Graphics
+Index: setxkbmap/Makefile.am
+===================================================================
+--- setxkbmap/Makefile.am.orig	2007-02-08 17:12:52.000000000 +0100
++++ setxkbmap/Makefile.am	2007-02-08 17:14:47.000000000 +0100
+@@ -58,7 +58,8 @@
+ 	-e 's|__libmansuffix__|$(LIB_MAN_SUFFIX)|g' \
+ 	-e 's|__adminmansuffix__|$(ADMIN_MAN_SUFFIX)|g' \
+ 	-e 's|__miscmansuffix__|$(MISC_MAN_SUFFIX)|g' \
+-	-e 's|__filemansuffix__|$(FILE_MAN_SUFFIX)|g'
++	-e 's|__filemansuffix__|$(FILE_MAN_SUFFIX)|g' \
++	-e 's|__XKBCONFIGROOT__|$(XKBCONFIGROOT)|g'
+ 
+ SUFFIXES = .$(APP_MAN_SUFFIX) .man
+ 

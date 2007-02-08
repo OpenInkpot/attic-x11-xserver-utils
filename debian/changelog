@@ -1,3 +1,10 @@
+xbase-clients (1:7.1.ds1-3) UNRELEASED; urgency=low
+
+  * Patch setxkbmap(1) to refer to the correct location for xkb files, thanks
+    to Celejar <celejar@gmail.com> for noticing.
+
+ -- Julien Cristau <jcristau@debian.org>  Thu,  8 Feb 2007 16:59:39 +0100
+
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
   * Add patch by Eugene Konev to fix xdbedizzy crash (closes: #365291).
