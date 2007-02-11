@@ -13,8 +13,9 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Update to xev 1.0.2.
   * Update to xf86dga 1.0.2.
   * Update to xfontsel 1.0.2.
+  * Update to xinit 1.0.3.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:38:18 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:41:59 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
