@@ -19,8 +19,10 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Update to xmodmap 1.0.2.
   * Update to xprop 1.0.2.
   * Update to xrdb 1.0.3.
+  * Update to xsetpointer 1.0.1.
+    + Add build-dep on x11proto-input-dev >= 1.4.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:56:48 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:03:47 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
