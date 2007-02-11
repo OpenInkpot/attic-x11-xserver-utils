@@ -29,8 +29,9 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Modify patch 08_xlsfonts_do_not_spew_usage_on_connection_error.diff to
     apply to xprop, xwd and xwininfo as well, since they all use a copy of
     dsimple.c.
+  * Change my email address in debian/control.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:34:58 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:44:05 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
