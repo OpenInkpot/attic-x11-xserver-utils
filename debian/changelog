@@ -9,8 +9,9 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Update to setxkbmap 1.0.3.
   * Update to xauth 1.0.2.
   * Update to xdbedizzy 1.0.2.
+  * Update to xedit 1.0.2.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:23:35 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:25:33 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
