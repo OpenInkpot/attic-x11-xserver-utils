@@ -10,6 +10,5 @@
 11_xkb_documentation_updates.diff -p0
 12_startx_paths.diff
 13_xconsole_implicit_pointer_conversion.diff
-pkgconfig_naughtiness -p0
 14_SECURITY_setuid.diff
 15_xmore_fix_segv_without_xprint.diff -p2

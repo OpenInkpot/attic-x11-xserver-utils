@@ -10,6 +10,7 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Update to xauth 1.0.2.
   * Update to xdbedizzy 1.0.2.
     + patch 16_xdbedizzy_fix_crash.diff dropped, included upstream.
+    + patch pkgconfig_naughtiness dropped, now unnecessary.
   * Update to xedit 1.0.2.
   * Update to xev 1.0.2.
   * Update to xf86dga 1.0.2.
@@ -29,7 +30,7 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
     apply to xprop, xwd and xwininfo as well, since they all use a copy of
     dsimple.c.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:31:51 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:34:58 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
