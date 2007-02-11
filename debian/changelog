@@ -3,8 +3,9 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Patch setxkbmap(1) to refer to the correct location for xkb files, thanks
     to Celejar <celejar@gmail.com> for noticing.
   * Update to appres 1.0.1.
+  * Update to beforelight 1.0.2.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 06:57:26 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 07:01:36 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
