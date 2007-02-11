@@ -11,9 +11,9 @@ This patch will not be submitted upstream.
 
 Index: setxkbmap/setxkbmap.c
 ===================================================================
---- setxkbmap/setxkbmap.c
-+++ setxkbmap/setxkbmap.c
-@@ -318,9 +318,13 @@
+--- setxkbmap/setxkbmap.c.orig	2007-02-11 08:37:45.000000000 +0100
++++ setxkbmap/setxkbmap.c	2007-02-11 08:38:02.000000000 +0100
+@@ -321,9 +321,13 @@
  int 	i;
  Bool	ok;
  unsigned	present;
@@ -29,8 +29,8 @@ Index: setxkbmap/setxkbmap.c
  	if (argv[i][0]!='-') {
 Index: xkbcomp/xkbpath.c
 ===================================================================
---- xkbcomp/xkbpath.c
-+++ xkbcomp/xkbpath.c
+--- xkbcomp/xkbpath.c.orig	2007-02-11 08:37:45.000000000 +0100
++++ xkbcomp/xkbpath.c	2007-02-11 08:38:02.000000000 +0100
 @@ -131,9 +131,14 @@
  void
  XkbAddDefaultDirectoriesToPath(void)
@@ -48,8 +48,8 @@ Index: xkbcomp/xkbpath.c
  
 Index: xkbevd/xkbevd.c
 ===================================================================
---- xkbevd/xkbevd.c
-+++ xkbevd/xkbevd.c
+--- xkbevd/xkbevd.c.orig	2007-02-11 08:37:45.000000000 +0100
++++ xkbevd/xkbevd.c	2007-02-11 08:38:02.000000000 +0100
 @@ -471,20 +471,28 @@
      else {
  	file= fopen(cfgFileName,"r");

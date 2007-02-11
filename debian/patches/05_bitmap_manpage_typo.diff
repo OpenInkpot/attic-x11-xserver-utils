@@ -1,8 +1,8 @@
 Index: xbase-clients/bitmap/bitmap.man
 ===================================================================
---- xbase-clients.orig/bitmap/bitmap.man	2006-02-18 14:55:39.000000000 -0500
-+++ xbase-clients/bitmap/bitmap.man	2006-02-26 20:35:50.000000000 -0500
-@@ -162,7 +162,7 @@
+--- xbase-clients.orig/bitmap/bitmap.man	2007-02-11 08:36:55.000000000 +0100
++++ xbase-clients/bitmap/bitmap.man	2007-02-11 08:37:09.000000000 +0100
+@@ -157,7 +157,7 @@
  .SH USAGE 
  \fIBitmap\fP displays grid in which each square represents a single
  bit in the picture being edited.  Actual size of the bitmap image, as
