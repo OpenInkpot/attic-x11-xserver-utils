@@ -8,15 +8,12 @@ The user should only be shown a usage messages when:
   * it is asked for with a --help option or the like.
   * the command line is syntactically invalid.
 
-Because xlsfonts's dsimple.c source file is also used in xprop, xwd, and
-xwininfo, this patch also corrects this behavior for those programs.
-
 Not submitted upstream to XFree86 or X.Org.
 
 Index: xlsfonts/dsimple.c
 ===================================================================
---- xlsfonts/dsimple.c.orig	2006-02-18 14:55:15.000000000 -0500
-+++ xlsfonts/dsimple.c	2006-02-26 22:36:04.000000000 -0500
+--- xlsfonts/dsimple.c.orig	2006-07-11 04:53:33.000000000 +0200
++++ xlsfonts/dsimple.c	2007-02-11 08:14:45.000000000 +0100
 @@ -188,8 +188,7 @@
  	if (d == NULL) {
  	    fprintf (stderr, "%s:  unable to open display '%s'\n",
@@ -24,6 +21,48 @@ Index: xlsfonts/dsimple.c
 -	    usage ();
 -	    /* doesn't return */
 +	    exit (1);
+ 	}
+ 
+ 	return(d);
+Index: xprop/dsimple.c
+===================================================================
+--- xprop/dsimple.c.orig	2007-02-11 08:15:17.000000000 +0100
++++ xprop/dsimple.c	2007-02-11 08:15:40.000000000 +0100
+@@ -188,8 +188,7 @@
+ 	if (d == NULL) {
+ 	    fprintf (stderr, "%s:  unable to open display '%s'\n",
+ 		     program_name, XDisplayName (display_name));
+-	    usage ();
+-	    /* doesn't return */
++	    exit(1);
+ 	}
+ 
+ 	return(d);
+Index: xwd/dsimple.c
+===================================================================
+--- xwd/dsimple.c.orig	2007-02-11 08:15:57.000000000 +0100
++++ xwd/dsimple.c	2007-02-11 08:16:10.000000000 +0100
+@@ -188,8 +188,7 @@
+ 	if (d == NULL) {
+ 	    fprintf (stderr, "%s:  unable to open display '%s'\n",
+ 		     program_name, XDisplayName (display_name));
+-	    usage ();
+-	    /* doesn't return */
++	    exit(1);
+ 	}
+ 
+ 	return(d);
+Index: xwininfo/dsimple.c
+===================================================================
+--- xwininfo/dsimple.c.orig	2007-02-11 08:16:29.000000000 +0100
++++ xwininfo/dsimple.c	2007-02-11 08:16:47.000000000 +0100
+@@ -188,8 +188,7 @@
+ 	if (d == NULL) {
+ 	    fprintf (stderr, "%s:  unable to open display '%s'\n",
+ 		     program_name, XDisplayName (display_name));
+-	    usage ();
+-	    /* doesn't return */
++	    exit(1);
  	}
  
  	return(d);
