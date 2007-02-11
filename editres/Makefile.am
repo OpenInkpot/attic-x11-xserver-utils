@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.13 2005/12/07 16:17:58 kem Exp $
 # 
 #  Copyright 2005  Red Hat, Inc.
 # 
@@ -28,7 +27,6 @@ editres_LDADD = $(EDITRES_LIBS)
 editres_SOURCES =	\
         actions.c \
         comm.c \
-        config.h \
         editres.c \
         editresP.h \
         geometry.c \
@@ -50,7 +48,7 @@ APPDEFAULTFILES = \
         Editres-color \
         Editres
 
-EXTRA_DIST = $(APPDEFAULTFILES:%=%.ad)
+EXTRA_DIST = $(APPDEFAULTFILES:%=%.ad) ChangeLog autogen.sh
 
 SUFFIXES = .ad 
 
@@ -60,7 +58,12 @@ SUFFIXES = .ad
 appdefault_DATA = $(APPDEFAULTFILES)
 
 CLEANFILES = $(APPDEFAULTFILES)
+MAINTAINERCLEANFILES=ChangeLog
 
+ChangeLog:
+	(GIT_DIR=$(top_srcdir)/.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
+
+dist-hook: ChangeLog
 
 appmandir = $(APP_MAN_DIR)
 
