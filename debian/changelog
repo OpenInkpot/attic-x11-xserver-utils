@@ -12,8 +12,10 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
   * Update to xedit 1.0.2.
   * Update to xev 1.0.2.
   * Update to xf86dga 1.0.2.
+    + relevant part dropped from 14_SECURITY_setuid.diff.
   * Update to xfontsel 1.0.2.
   * Update to xinit 1.0.3.
+    + relevant part dropped from 14_SECURITY_setuid.diff.
   * Update to xkbcomp 1.0.3.
   * Update to xlsfonts 1.0.2.
   * Update to xmodmap 1.0.2.
@@ -26,7 +28,7 @@ xbase-clients (1:7.2.ds1-1) UNRELEASED; urgency=low
     apply to xprop, xwd and xwininfo as well, since they all use a copy of
     dsimple.c.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:17:47 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 08:27:31 +0100
 
 xbase-clients (1:7.1.ds1-2) unstable; urgency=low
 
