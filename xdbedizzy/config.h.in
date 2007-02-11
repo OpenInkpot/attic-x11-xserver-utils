@@ -18,5 +18,8 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
+/* Define to enable Xprint */
+#undef USE_XPRINT
+
 /* Version number of package */
 #undef VERSION
