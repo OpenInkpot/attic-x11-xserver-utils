@@ -1,3 +1,11 @@
+xbase-clients (1:7.2.ds1-2) experimental; urgency=low
+
+  * Build-dep on libpng12-dev instead of libpng-dev.  xcursorgen requires
+    libpng12.pc, which is not available in libpng14-dev, despite it providing
+    libpng-dev and libpng12-dev, *sigh*.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 12 Feb 2007 05:35:18 +0100
+
 xbase-clients (1:7.2.ds1-1) experimental; urgency=low
 
   * Patch setxkbmap(1) to refer to the correct location for xkb files, thanks
