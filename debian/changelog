@@ -1,8 +1,9 @@
 xbase-clients (1:7.2.ds2-1) experimental; urgency=low
 
   * Update to xrandr 1.2.0.
+  * Build-dep on libxrandr 1.2.0.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 19 Feb 2007 09:59:14 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 19 Feb 2007 10:00:26 +0100
 
 xbase-clients (1:7.2.ds1-2) experimental; urgency=low
 
