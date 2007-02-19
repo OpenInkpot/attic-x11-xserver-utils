@@ -1,0 +1,13 @@
+Index: xbase-clients/beforelight/Makefile.am
+===================================================================
+--- xbase-clients.orig/beforelight/Makefile.am	2007-02-19 10:44:32.000000000 +0100
++++ xbase-clients/beforelight/Makefile.am	2007-02-19 10:44:40.000000000 +0100
+@@ -33,7 +33,7 @@
+ 
+ # App default files  (*.ad)
+ 
+-appdefaultdir = $(DESTDIR)@appdefaultdir@
++appdefaultdir = @appdefaultdir@
+ 
+ EXTRA_DIST = \
+         Beforelight.ad
