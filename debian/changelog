@@ -1,10 +1,16 @@
 xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
 
+  [ Julien Cristau ]
   * Autoreconf with patches applied.
   * Add build-dep on libxinerama-dev, so xdpyinfo is built with support for
     the xinerama extension.
 
- -- Julien Cristau <jcristau@debian.org>  Wed,  7 Mar 2007 17:58:16 +0100
+  [ Brice Goglin ]
+  * Restore Depends: on cpp (got lost during modularization)
+    since xrdb needs it to process .Xdefaults.
+    Thanks Marcus C. Gottwald (closes: #413298).
+
+ -- Brice Goglin <Brice.Goglin@ens-lyon.org>  Mon, 12 Mar 2007 00:43:06 +0100
 
 xbase-clients (1:7.2.ds2-1) experimental; urgency=low
 
