@@ -1,0 +1,13 @@
+Index: xbase-clients/xmodmap/xmodmap.man
+===================================================================
+--- xbase-clients.orig/xmodmap/xmodmap.man	2007-03-30 14:43:27.000000000 +0200
++++ xbase-clients/xmodmap/xmodmap.man	2007-03-30 14:45:03.000000000 +0200
+@@ -140,7 +140,7 @@
+ used to perform the corresponding set of \fBkeycode\fP expressions.
+ The list of keysym names may be
+ found in the header file \fI<X11/keysymdef.h>\fP (without the \fIXK_\fP prefix)
+-or the keysym database \fI __projectroot__/lib/X11/XKeysymDB\fP.  Note that
++or the keysym database \fI __projectroot__/share/X11/XKeysymDB\fP.  Note that
+ if the same keysym is bound to multiple keys, the expression is executed
+ for each matching keycode.
+ .TP 8

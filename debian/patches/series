@@ -13,3 +13,4 @@
 14_SECURITY_setuid.diff
 15_xmore_fix_segv_without_xprint.diff -p2
 16_beforelight_install_app-defaults.diff
+17_xmodmap_manpage.diff
