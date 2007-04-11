@@ -155,7 +155,7 @@ Description: miscellaneous X clients
   - xgc, an (unfinished) X graphics demo program.
  .
  The bitmap, editres, viewres, xbiff, xcalc, xconsole, xditview, xedit,
- xf86cfg, xman, xsetroot, and xsm programs use bitmap images provided by the
+ xman, xsetroot, and xsm programs use bitmap images provided by the
  xlibs-data package.  xkbcomp uses the XKEYBOARD (XKB) extension configuration
  data provided by the xlibs package.
  .
