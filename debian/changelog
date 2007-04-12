@@ -8,6 +8,8 @@ xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
     /usr/share/X11/XKeysymDB instead of /usr/lib/X11/XKeysymDB
     (closes: #394077).  Thanks, Joachim Breitner!
   * Document each app's build-dependencies in debian/control for reference.
+  * Update long description: XKB configuration data is in xkb-data, bitmap
+    images in xbitmaps.
 
   [ Brice Goglin ]
   * Restore Depends: on cpp (got lost during modularization)
@@ -16,7 +18,7 @@ xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
   * Remove mention of xf86cfg in package description.
     Thanks Daniel Leidert (really closes: #362066).
 
- -- Brice Goglin <Brice.Goglin@ens-lyon.org>  Wed, 11 Apr 2007 21:40:29 +0200
+ -- Julien Cristau <jcristau@debian.org>  Thu, 12 Apr 2007 11:43:02 +0200
 
 xbase-clients (1:7.2.ds2-1) experimental; urgency=low
 

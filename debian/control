@@ -156,12 +156,12 @@ Description: miscellaneous X clients
  .
  The bitmap, editres, viewres, xbiff, xcalc, xconsole, xditview, xedit,
  xman, xsetroot, and xsm programs use bitmap images provided by the
- xlibs-data package.  xkbcomp uses the XKEYBOARD (XKB) extension configuration
- data provided by the xlibs package.
+ xbitmaps package.  xkbcomp uses the XKEYBOARD (XKB) extension configuration
+ data provided by the xkb-data package.
  .
  (Strictly speaking, atobm does not depend on any X libraries, but it shares a
  manual page with bitmap and bmtoa, and so is grouped with them in this
  package.)
  .
  This package no longer provides the 'mkfontscale' program; it has instead been
- moved to xutils.
+ moved to xfonts-utils.
