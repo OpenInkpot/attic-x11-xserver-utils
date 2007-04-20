@@ -1,4 +1,4 @@
-xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
+xbase-clients (1:7.2.ds2-2) unstable; urgency=low
 
   [ Julien Cristau ]
   * Autoreconf with patches applied.
@@ -11,6 +11,7 @@ xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
   * Update long description: XKB configuration data is in xkb-data, bitmap
     images in xbitmaps.
   * Add XS-Vcs-* in debian/control.
+  * Upload to unstable.
 
   [ Brice Goglin ]
   * Restore Depends: on cpp (got lost during modularization)
@@ -19,7 +20,7 @@ xbase-clients (1:7.2.ds2-2) UNRELEASED; urgency=low
   * Remove mention of xf86cfg in package description.
     Thanks Daniel Leidert (really closes: #362066).
 
- -- Julien Cristau <jcristau@debian.org>  Fri, 20 Apr 2007 21:41:03 +0200
+ -- Julien Cristau <jcristau@debian.org>  Fri, 20 Apr 2007 22:00:14 +0200
 
 xbase-clients (1:7.2.ds2-1) experimental; urgency=low
 
