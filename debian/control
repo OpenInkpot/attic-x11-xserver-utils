@@ -77,6 +77,8 @@ Build-Depends: debhelper (>= 5.0.0), pkg-config, libfs-dev (>= 2:1.0.0-1), libpn
 # xwininfo: libxmuu-dev, libxext-dev, libx11-dev
 # xwud: libx11-dev
 Standards-Version: 3.7.2.0
+XS-Vcs-Git: git://git.debian.org/git/pkg-xorg/app/xbase-clients
+XS-Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/xbase-clients.git
 
 Package: xbase-clients
 Architecture: any
