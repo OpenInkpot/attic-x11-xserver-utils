@@ -1,3 +1,10 @@
+xbase-clients (1:7.2.ds2-3) unstable; urgency=low
+
+  * Add patch to xsm's configure.ac to not override the user-provided RSH
+    variable, so we can drop the openssh build-dep (closes: #362787).
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 09 May 2007 16:26:06 +0200
+
 xbase-clients (1:7.2.ds2-2) unstable; urgency=low
 
   [ Julien Cristau ]
