@@ -1,3 +1,39 @@
+x11-xserver-utils (1) UNRELEASED; urgency=low
+
+  * Split xbase-clients, new versioning.
+  * Included packages:
+    - iceauth 1.0.1
+    - rgb 1.0.1 (from xutils)
+    - sessreg 1.0.0 (from xutils)
+    - xcmsdb 1.0.1
+    - xgamma 1.0.1
+    - xhost 1.0.1
+    - xmodmap 1.0.2
+    - xrandr 1.2.0
+    - xrdb 1.0.3
+    - xrefresh 1.0.2
+    - xset 1.0.2
+    - xsetmode 1.0.0
+    - xsetpointer 1.0.1
+    - xsetroot 1.0.1
+    - xstdcmap 1.0.1
+    - xtrap 1.0.2
+    - xvidtune 1.0.1
+  * debian/control:
+    - Rename Package and Source.
+    - Remove unnecessary Build-Deps.
+    - Modify description.
+  * debian/copyright: Leave only copyright notices that relate to
+    this package. FIXME:*rgb, sessreg missing*
+  * debian/x11-xserver-utils.install, rules: Edit to reflect new
+    packaging.
+  * debian/x11-xserver-utils.dirs: Remove.
+  * debian/local/: Remove.
+  * debian/patches: Delete patches which do not relate to this package.
+  * 
+
+ -- Timo Aaltonen <tjaalton@cc.hut.fi>  Thu, 17 May 2007 00:55:55 +0300
+
 xbase-clients (1:7.2.ds2-3) unstable; urgency=low
 
   * Add patch to xsm's configure.ac to not override the user-provided RSH

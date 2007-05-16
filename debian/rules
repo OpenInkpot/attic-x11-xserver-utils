@@ -8,15 +8,14 @@
 #export DH_VERBOSE=1
 
 # set this to the name of the main shlib's binary package
-PACKAGE = xbase-clients
+PACKAGE = x11-xserver-utils
 
 include debian/xsfbs/xsfbs.mk
 
 # This package contains multiple modules as shipped by upstream. Each module is # contained in a subdirectory in the root dir of the package. You must list each
 # subdirectory explicitly so that the build system knows what to build
-DEF_SUBDIRS=appres beforelight bitmap editres fstobdf iceauth ico listres oclock smproxy viewres x11perf xauth xbiff xcalc xclipboard xclock xcmsdb xconsole xcursorgen xdbedizzy xditview xdpyinfo xdriinfo xedit xev xeyes xf86dga xfd xfontsel xgamma xgc xhost xinit xkill xload xlogo xlsatoms xlsclients xlsfonts xmag xman xmessage xmodmap xmore xprop xrandr xrdb xrefresh xsetmode xsetpointer xsetroot xset xsm xstdcmap xtrap xvidtune xvinfo xwd xwininfo xwud
-XKB_SUBDIRS=setxkbmap xkbcomp xkbevd xkbprint xkbutils
-SUBDIRS=$(DEF_SUBDIRS) $(XKB_SUBDIRS)
+DEF_SUBDIRS=iceauth rgb sessreg xcmsdb xgamma xhost xmodmap xrandr xrdb xrefresh xset xsetmode xsetpointer xsetroot xstdcmap xtrap xvidtune
+SUBDIRS=$(DEF_SUBDIRS)
 
 CFLAGS = -Wall -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -54,16 +53,6 @@ build-stamp:
 		$(MAKE)) || exit 1; \
 	done
 
-	for FILE in $(XKB_SUBDIRS); do \
-		echo "$$FILE" ; \
-		mkdir "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE); \
-		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
-		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
-		             --infodir=\$${prefix}/share/info $(confflags) \
-		             CFLAGS="$(CFLAGS)" && \
-		$(MAKE)) || exit 1; \
-	done
-
 	touch build-stamp
 
 clean: xsfclean
@@ -89,8 +78,6 @@ install: build
 		cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install ; \
 		cd ..; \
 	done
-	install -d debian/tmp/etc/X11/xinit
-	install -m 755 debian/local/xserverrc debian/tmp/etc/X11/xinit
 
 # Build architecture-dependent files here.
 binary-arch: build install
