@@ -23,6 +23,9 @@ x11-xserver-utils (1) UNRELEASED; urgency=low
     - Rename Package and Source.
     - Remove unnecessary Build-Deps.
     - Modify description.
+    - Conflicts/Replaces: xbase-clients (<= 1:7.2.ds2-3),
+      xutils (<=1:7.1.ds.3-1) to make upgrades smoother.
+    - C/R: <all the included packages> to work around old Ubuntu packaging.
   * debian/copyright: Leave only copyright notices that relate to
     this package. FIXME:*rgb, sessreg missing*
   * debian/x11-xserver-utils.install, rules: Edit to reflect new
@@ -30,9 +33,8 @@ x11-xserver-utils (1) UNRELEASED; urgency=low
   * debian/x11-xserver-utils.dirs: Remove.
   * debian/local/: Remove.
   * debian/patches: Delete patches which do not relate to this package.
-  * 
 
- -- Timo Aaltonen <tjaalton@cc.hut.fi>  Thu, 17 May 2007 00:55:55 +0300
+ -- Timo Aaltonen <tjaalton@cc.hut.fi>  Sat, 19 May 2007 01:37:29 +0300
 
 xbase-clients (1:7.2.ds2-3) unstable; urgency=low
 
