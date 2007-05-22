@@ -35,9 +35,11 @@ Package: x11-xserver-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, cpp
 Pre-Depends: x11-common (>= 1:7.0.0)
+Conflicts: iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
+ xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
 Replaces: xbase-clients (<= 1:7.2.ds2-3), xutils (<= 1:7.1.ds.3-1),
- iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xset,
- xsetmode, xsetroot, xstdcmap, xtrap, xvidtune
+ iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
+ xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
 Description: X server utilities
  An X client is a program that interfaces with an X server (almost always via
  the X libraries), and thus with some input and output hardware like a
