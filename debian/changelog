@@ -1,4 +1,4 @@
-x11-xserver-utils (1) UNRELEASED; urgency=low
+x11-xserver-utils (0.1) UNRELEASED; urgency=low
 
   * Split xbase-clients, new versioning.
   * Included packages:
