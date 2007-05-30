@@ -4,12 +4,13 @@ Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Nusinow <dnusinow@debian.org>, Branden Robinson <branden@debian.org>, Julien Cristau <jcristau@debian.org>
 Build-Depends: debhelper (>= 5.0.0), pkg-config, libx11-dev (>= 2:1.0.0-1),
- libxaw7-dev (>= 1:1.0.1-1), libxext-dev (>= 1:1.0.0-1), libxi-dev (>= 1:1.0.0-3),
- libxmuu-dev (>= 1:1.0.1-1), libxrandr-dev (>= 2:1.2.0-1), libxt-dev (>= 1:1.0.0-1),
+ libxaw7-dev (>= 1:1.0.1-1), libxext-dev (>= 1:1.0.0-1),
+ libxi-dev (>= 1:1.0.0-3), libxmuu-dev (>= 1:1.0.1-1),
+ libxrandr-dev (>= 2:1.2.0-1), libxt-dev (>= 1:1.0.0-1),
  libxtrap-dev (>= 1:1.0.0-1), libxxf86vm-dev (>= 1:1.0.0-1), xbitmaps, quilt,
  x11proto-input-dev (>= 1.4)
 # Reasons for build-depends:
-# debhelper for the packaging, pkg-config needed by configure scripts
+# debhelper for the packaging, pkg-config needed by configure scripts
 # Individual apps:
 # iceauth: x11proto-core-dev, libice-dev
 # xcmsdb: libx11-dev
@@ -27,7 +28,7 @@ Build-Depends: debhelper (>= 5.0.0), pkg-config, libx11-dev (>= 2:1.0.0-1),
 # xstdcmap: libxmu-dev, libx11-dev
 # xtrap: libx11-dev, libxtrap-dev
 # xvidtune: libxaw7-dev, libxxf86vm-dev, libxt-dev
-Standards-Version: 3.7.2.0
+Standards-Version: 3.7.2
 XS-Vcs-Git: git://git.debian.org/git/pkg-xorg/app/x11-xserver-utils
 XS-Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/x11-xserver-utils.git
 
@@ -56,7 +57,7 @@ Description: X server utilities
   - xhost, a very dangerous program that you should never use;
   - xmodmap, a utility for modifying keymaps and pointer button mappings in X;
   - xrandr, a command-line interface to the RandR extension;
-  - xrdb;
+  - xrdb, a tool to manage the X server resource database;
   - xrefresh, a tool that forces a redraw of the X screen;
   - xset, a tool for setting miscellaneous X server parameters;
   - xsetmode and xsetpointer, tools for handling X Input devices;
@@ -64,4 +65,4 @@ Description: X server utilities
   - xstdcmap, a utility to selectively define standard colormap properties;
   - xtrapchar, xtrapin, xtrapinfo, xtrapout, xtrapproto, xtrapreset, and
     xtrapstats, a group of sample clients that use the XTrap extension;
-  - xvidtune, a tool for customizing X server modelines for your monitor;
+  - xvidtune, a tool for customizing X server modelines for your monitor.
