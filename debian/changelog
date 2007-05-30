@@ -1,5 +1,6 @@
-x11-xserver-utils (0.1) UNRELEASED; urgency=low
+x11-xserver-utils (0.1) experimental; urgency=low
 
+  [ Timo Aaltonen ]
   * Split xbase-clients, new versioning.
   * Included packages:
     - iceauth 1.0.1
@@ -35,7 +36,10 @@ x11-xserver-utils (0.1) UNRELEASED; urgency=low
   * debian/local/: Remove.
   * debian/patches: Delete patches which do not relate to this package.
 
- -- Timo Aaltonen <tjaalton@cc.hut.fi>  Tue, 22 May 2007 12:00:41 +0300
+  [ Julien Cristau ]
+  * autoreconf to bring in new versions of config.{guess,sub}.
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 30 May 2007 20:06:23 +0200
 
 xbase-clients (1:7.2.ds2-3) unstable; urgency=low
 
