@@ -111,8 +111,17 @@ usage(void)
     fprintf(stderr, "      --right-of <output>\n");
     fprintf(stderr, "      --above <output>\n");
     fprintf(stderr, "      --below <output>\n");
+    fprintf(stderr, "      --same-as <output>\n");
+    fprintf(stderr, "      --set <property> <value>\n");
     fprintf(stderr, "      --off\n");
     fprintf(stderr, "      --crtc <crtc>\n");
+    fprintf(stderr, "  --newmode <name> <clock MHz>\n");
+    fprintf(stderr, "            <hdisp> <hsync-start> <hsync-end> <htotal>\n");
+    fprintf(stderr, "            <vdisp> <vsync-start> <vsync-end> <vtotal>\n");
+    fprintf(stderr, "            [+HSync] [-HSync] [+VSync] [-VSync]\n");
+    fprintf(stderr, "  --rmmode <name>\n");
+    fprintf(stderr, "  --addmode <output> <mode>\n");
+    fprintf(stderr, "  --delmode <output> <mode>\n");
 #endif
 
     exit(1);
@@ -159,6 +168,7 @@ reflection_name (Rotation rotation)
     case RR_Reflect_X|RR_Reflect_Y:
 	return "X and Y axis";
     }
+    return "invalid reflection";
 }
 
 #if HAS_RANDR_1_2
@@ -167,7 +177,7 @@ typedef enum _policy {
 } policy_t;
 
 typedef enum _relation {
-    left_of, right_of, above, below
+    left_of, right_of, above, below, same_as,
 } relation_t;
 
 typedef enum _changes {
@@ -180,6 +190,7 @@ typedef enum _changes {
     changes_reflection = (1 << 5),
     changes_automatic = (1 << 6),
     changes_refresh = (1 << 7),
+    changes_property = (1 << 8),
 } changes_t;
 
 typedef enum _name_kind {
@@ -199,6 +210,8 @@ typedef struct {
 
 typedef struct _crtc crtc_t;
 typedef struct _output	output_t;
+typedef struct _umode	umode_t;
+typedef struct _output_prop output_prop_t;
 
 struct _crtc {
     name_t	    crtc;
@@ -213,11 +226,19 @@ struct _crtc {
     int		    noutput;
 };
 
+struct _output_prop {
+    struct _output_prop	*next;
+    char		*name;
+    char		*value;
+};
+
 struct _output {
     struct _output   *next;
     
     changes_t	    changes;
     
+    output_prop_t   *props;
+
     name_t	    output;
     XRROutputInfo   *output_info;
     
@@ -228,6 +249,8 @@ struct _output {
     float	    refresh;
     XRRModeInfo	    *mode_info;
     
+    name_t	    addmode;
+
     relation_t	    relation;
     char	    *relative_to;
 
@@ -235,6 +258,20 @@ struct _output {
     Rotation	    rotation;
     
     Bool    	    automatic;
+};
+
+typedef enum _umode_action {
+    umode_create, umode_destroy, umode_add, umode_delete
+} umode_action_t;
+
+
+struct _umode {
+    struct _umode   *next;
+    
+    umode_action_t  action;
+    XRRModeInfo	    mode;
+    name_t	    output;
+    name_t	    name;
 };
 
 static char *connection[3] = {
@@ -258,6 +295,7 @@ static char *connection[3] = {
 static output_t	*outputs = NULL;
 static output_t	**outputs_tail = &outputs;
 static crtc_t	*crtcs;
+static umode_t	*umodes;
 static int	num_crtcs;
 static XRRScreenResources  *res;
 static int	fb_width = 0, fb_height = 0;
@@ -412,7 +450,7 @@ find_output (name_t *name)
 	    break;
 	if ((common & name_string) && !strcmp (name->string, output->output.string))
 	    break;
-	if ((common & name_index) & name->index == output->output.index)
+	if ((common & name_index) && name->index == output->output.index)
 	    break;
     }
     return output;
@@ -513,6 +551,15 @@ find_mode_by_xid (RRMode mode)
 
     init_name (&mode_name);
     set_name_xid (&mode_name, mode);
+    return find_mode (&mode_name, 0);
+}
+
+static XRRModeInfo *
+find_mode_by_name (char *name)
+{
+    name_t  mode_name;
+    init_name (&mode_name);
+    set_name_string (&mode_name, name);
     return find_mode (&mode_name, 0);
 }
 
@@ -852,8 +899,6 @@ set_crtcs (void)
 static Status
 crtc_disable (crtc_t *crtc)
 {
-    XRRCrtcInfo	*crtc_info = crtc->crtc_info;
-    
     if (verbose)
     	printf ("crtc %d: disable\n", crtc->crtc.index);
 	
@@ -919,7 +964,7 @@ static void
 screen_revert (void)
 {
     if (verbose)
-	printf ("screen %d: revert\n");
+	printf ("screen %d: revert\n", screen);
 
     if (dryrun)
 	return;
@@ -1183,7 +1228,7 @@ find_crtc_for_output (output_t *output)
     for (c = 0; c < output->output_info->ncrtc; c++)
     {
 	crtc_t	    *crtc;
-	int	    l, o;
+	int	    l;
 	output_t    *other;
 
 	crtc = find_crtc_by_xid (output->output_info->crtcs[c]);
@@ -1242,6 +1287,8 @@ set_positions (void)
 
 	    if (!(output->changes & changes_relation)) continue;
 	    
+	    if (output->mode_info == NULL) continue;
+
 	    init_name (&relation_name);
 	    set_name_string (&relation_name, output->relative_to);
 	    relation = find_output (&relation_name);
@@ -1282,6 +1329,9 @@ set_positions (void)
 		output->x = relation->x;
 		output->y = relation->y + mode_height (relation->mode_info, relation->rotation);
 		break;
+	    case same_as:
+		output->x = relation->x;
+		output->y = relation->y;
 	    }
 	    output->changes |= changes_position;
 	    any_set = True;
@@ -1397,10 +1447,11 @@ main (int argc, char **argv)
     int		ret = 0;
 #if HAS_RANDR_1_2
     output_t	*output = NULL;
-    char	*crtc;
     policy_t	policy = clone;
     Bool    	setit_1_2 = False;
     Bool    	query_1_2 = False;
+    Bool	modeit = False;
+    Bool	propit = False;
     Bool	query_1 = False;
     int		major, minor;
 #endif
@@ -1600,6 +1651,29 @@ main (int argc, char **argv)
 	    output->changes |= changes_relation;
 	    continue;
 	}
+	if (!strcmp ("--same-as", argv[i])) {
+	    if (++i>=argc) usage ();
+	    if (!output) usage();
+	    output->relation = same_as;
+	    output->relative_to = argv[i];
+	    output->changes |= changes_relation;
+	    continue;
+	}
+	if (!strcmp ("--set", argv[i])) {
+	    output_prop_t   *prop;
+	    if (!output) usage();
+	    prop = malloc (sizeof (output_prop_t));
+	    prop->next = output->props;
+	    output->props = prop;
+	    if (++i>=argc) usage ();
+	    prop->name = argv[i];
+	    if (++i>=argc) usage ();
+	    prop->value = argv[i];
+	    propit = True;
+	    output->changes |= changes_property;
+	    setit_1_2 = True;
+	    continue;
+	}
 	if (!strcmp ("--off", argv[i])) {
 	    if (!output) usage();
 	    set_name_xid (&output->mode, None);
@@ -1649,7 +1723,8 @@ main (int argc, char **argv)
 		output->automatic = True;
 		output->changes |= changes_automatic;
 	    }
-	    automatic = True;
+	    else
+		automatic = True;
 	    setit_1_2 = True;
 	    continue;
 	}
@@ -1661,6 +1736,102 @@ main (int argc, char **argv)
 	if (!strcmp ("--q1", argv[i]))
 	{
 	    query_1 = True;
+	    continue;
+	}
+	if (!strcmp ("--newmode", argv[i]))
+	{
+	    umode_t  *m = malloc (sizeof (umode_t));
+	    float   clock;
+	    
+	    ++i;
+	    if (i + 9 >= argc) usage ();
+	    m->mode.name = argv[i];
+	    m->mode.nameLength = strlen (argv[i]);
+	    i++;
+	    if (sscanf (argv[i++], "%f", &clock) != 1)
+		usage ();
+	    m->mode.dotClock = clock * 1e6;
+
+	    if (sscanf (argv[i++], "%d", &m->mode.width) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.hSyncStart) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.hSyncEnd) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.hTotal) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.height) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.vSyncStart) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.vSyncEnd) != 1) usage();
+	    if (sscanf (argv[i++], "%d", &m->mode.vTotal) != 1) usage();
+	    m->mode.modeFlags = 0;
+	    while (i < argc) {
+		static const struct {
+		    char	    *string;
+		    unsigned long   flag;
+		} mode_flags[] = {
+		    { "+HSync", RR_HSyncPositive },
+		    { "-HSync", RR_HSyncNegative },
+		    { "+VSync", RR_VSyncPositive },
+		    { "-VSync", RR_VSyncNegative },
+		    { "Interlace", RR_Interlace },
+		    { "DoubleScan", RR_DoubleScan },
+		    { "CSync",	    RR_CSync },
+		    { "+CSync",	    RR_CSyncPositive },
+		    { "-CSync",	    RR_CSyncNegative },
+		    { NULL,	    0 }
+		};
+		int f;
+		
+		for (f = 0; mode_flags[f].string; f++)
+		    if (!strcasecmp (mode_flags[f].string, argv[i]))
+			break;
+		
+		if (!mode_flags[f].string)
+		    break;
+    		m->mode.modeFlags |= mode_flags[f].flag;
+    		i++;
+	    }
+	    m->next = umodes;
+	    m->action = umode_create;
+	    umodes = m;
+	    modeit = True;
+	    continue;
+	}
+	if (!strcmp ("--rmmode", argv[i]))
+	{
+	    umode_t  *m = malloc (sizeof (umode_t));
+
+	    if (++i>=argc) usage ();
+	    set_name (&m->name, argv[i], name_string|name_xid);
+	    m->action = umode_destroy;
+	    m->next = umodes;
+	    umodes = m;
+	    modeit = True;
+	    continue;
+	}
+	if (!strcmp ("--addmode", argv[i]))
+	{
+	    umode_t  *m = malloc (sizeof (umode_t));
+
+	    if (++i>=argc) usage ();
+	    set_name (&m->output, argv[i], name_string|name_xid);
+	    if (++i>=argc) usage();
+	    set_name (&m->name, argv[i], name_string|name_xid);
+	    m->action = umode_add;
+	    m->next = umodes;
+	    umodes = m;
+	    modeit = True;
+	    continue;
+	}
+	if (!strcmp ("--delmode", argv[i]))
+	{
+	    umode_t  *m = malloc (sizeof (umode_t));
+
+	    if (++i>=argc) usage ();
+	    set_name (&m->output, argv[i], name_string|name_xid);
+	    if (++i>=argc) usage();
+	    set_name (&m->name, argv[i], name_string|name_xid);
+	    m->action = umode_delete;
+	    m->next = umodes;
+	    umodes = m;
+	    modeit = True;
 	    continue;
 	}
 #endif
@@ -1698,17 +1869,134 @@ main (int argc, char **argv)
     if (major > 1 || (major == 1 && minor >= 2))
 	has_1_2 = True;
 	
+    if (has_1_2 && modeit)
+    {
+	umode_t	*m;
+
+        get_screen ();
+	get_crtcs();
+	get_outputs();
+	
+	for (m = umodes; m; m = m->next)
+	{
+	    XRRModeInfo *e;
+	    output_t	*o;
+	    
+	    switch (m->action) {
+	    case umode_create:
+		XRRCreateMode (dpy, root, &m->mode);
+		break;
+	    case umode_destroy:
+		e = find_mode (&m->name, 0);
+		if (!e)
+		    fatal ("cannot find mode \"%s\"\n", m->name.string);
+		XRRDestroyMode (dpy, e->id);
+		break;
+	    case umode_add:
+		o = find_output (&m->output);
+		if (!o)
+		    fatal ("cannot find output \"%s\"\n", m->output.string);
+		e = find_mode (&m->name, 0);
+		if (!e)
+		    fatal ("cannot find mode \"%s\"\n", m->name.string);
+		XRRAddOutputMode (dpy, o->output.xid, e->id);
+		break;
+	    case umode_delete:
+		o = find_output (&m->output);
+		if (!o)
+		    fatal ("cannot find output \"%s\"\n", m->output.string);
+		e = find_mode (&m->name, 0);
+		if (!e)
+		    fatal ("cannot find mode \"%s\"\n", m->name.string);
+		XRRDeleteOutputMode (dpy, o->output.xid, e->id);
+		break;
+	    }
+	}
+	if (!setit_1_2)
+	{
+	    XSync (dpy, False);
+	    exit (0);
+	}
+    }
+    if (has_1_2 && propit)
+    {
+	
+        get_screen ();
+	get_crtcs();
+	get_outputs();
+	
+	for (output = outputs; output; output = output->next)
+	{
+	    output_prop_t   *prop;
+
+	    for (prop = output->props; prop; prop = prop->next)
+	    {
+		Atom		name = XInternAtom (dpy, prop->name, False);
+		Atom		type;
+		int		format;
+		unsigned char	*data;
+		int		nelements;
+		int		int_value;
+		unsigned long	ulong_value;
+		unsigned char	*prop_data;
+		int		actual_format;
+		unsigned long	nitems, bytes_after;
+		Atom		actual_type;
+		XRRPropertyInfo *propinfo;
+
+		type = AnyPropertyType;
+		format=0;
+		
+		if (XRRGetOutputProperty (dpy, output->output.xid, name,
+					  0, 100, False, False,
+					  AnyPropertyType,
+					  &actual_type, &actual_format,
+					  &nitems, &bytes_after, &prop_data) == Success &&
+
+		    (propinfo = XRRQueryOutputProperty(dpy, output->output.xid,
+						      name)))
+		{
+		    type = actual_type;
+		    format = actual_format;
+		}
+		
+		if ((type == XA_INTEGER || type == AnyPropertyType) &&
+		    (sscanf (prop->value, "%d", &int_value) == 1 ||
+		     sscanf (prop->value, "0x%x", &int_value) == 1))
+		{
+		    type = XA_INTEGER;
+		    ulong_value = int_value;
+		    data = (unsigned char *) &ulong_value;
+		    nelements = 1;
+		    format = 32;
+		}
+		else if ((type == XA_ATOM))
+		{
+		    ulong_value = XInternAtom (dpy, prop->value, False);
+		    data = (unsigned char *) &ulong_value;
+		    nelements = 1;
+		    format = 32;
+		}
+		else if ((type == XA_STRING || type == AnyPropertyType))
+		{
+		    type = XA_STRING;
+		    data = (unsigned char *) prop->value;
+		    nelements = strlen (prop->value);
+		    format = 8;
+		}
+		XRRChangeOutputProperty (dpy, output->output.xid,
+					 name, type, format, PropModeReplace,
+					 data, nelements);
+	    }
+	}
+	if (!setit_1_2)
+	{
+	    XSync (dpy, False);
+	    exit (0);
+	}
+    }
     if (setit_1_2)
     {
-	XRROutputInfo	    *output_info;
-	XRRCrtcInfo	    *crtc_info;
-	XRRCrtcInfo	    *crtc_cur;
-	XRRModeInfo	    *mode_info;
-	RROutput	    *crtc_outputs;
-	int		    n_crtc_output;
-	int		    c, o, m;
-	int		    om, sm;
-
 	get_screen ();
 	get_crtcs ();
 	get_outputs ();
@@ -1801,6 +2089,9 @@ main (int argc, char **argv)
     if (query_1_2 || (query && has_1_2 && !query_1))
     {
 	output_t    *output;
+	int	    m;
+	
+#define ModeShown   0x80000000
 	
 	get_screen ();
 	get_crtcs ();
@@ -1871,7 +2162,7 @@ main (int argc, char **argv)
 		printf ("\tIdentifier: 0x%x\n", output->output.xid);
 		printf ("\tTimestamp:  %d\n", output_info->timestamp);
 		printf ("\tSubpixel:   %s\n", order[output_info->subpixel_order]);
-		printf ("\tClones:     ");
+		printf ("\tClones:    ");
 		for (j = 0; j < output_info->nclone; j++)
 		{
 		    output_t	*clone = find_output_by_xid (output_info->clones[j]);
@@ -1926,7 +2217,7 @@ main (int argc, char **argv)
 		    {
 			printf("\t%s: %d (0x%08x)",
 			       XGetAtomName (dpy, props[j]),
-			       *(INT32 *)prop);
+			       *(INT32 *)prop, *(INT32 *)prop);
 
  			if (propinfo->range && propinfo->num_values > 0) {
 			    printf(" range%s: ",
@@ -1938,6 +2229,26 @@ main (int argc, char **argv)
 			}
 
 			printf("\n");
+		    } else if (actual_type == XA_ATOM &&
+			       actual_format == 32)
+		    {
+			printf("\t%s: %s",
+			       XGetAtomName (dpy, props[j]),
+			       XGetAtomName (dpy, *(Atom *)prop));
+
+ 			if (!propinfo->range && propinfo->num_values > 0) {
+			    printf("\n\t\tsupported:");
+
+			    for (k = 0; k < propinfo->num_values; k++)
+			    {
+				printf(" %-12.12s", XGetAtomName (dpy,
+							    propinfo->values[k]));
+				if (k % 4 == 3 && k < propinfo->num_values - 1)
+				    printf ("\n\t\t          ");
+			    }
+			}
+			printf("\n");
+			
 		    } else if (actual_format == 8) {
 			printf ("\t\t%s: %s%s\n", XGetAtomName (dpy, props[j]),
 				prop, bytes_after ? "..." : "");
@@ -1964,6 +2275,7 @@ main (int argc, char **argv)
 		    printf ("        v: height %4d start %4d end %4d total %4d           clock %6.1fHz\n",
 			    mode->height, mode->vSyncStart, mode->vSyncEnd, mode->vTotal,
 			    mode_refresh (mode));
+		    mode->modeFlags |= ModeShown;
 		}
 	    }
 	    else
@@ -1985,6 +2297,7 @@ main (int argc, char **argv)
 			kmode = find_mode_by_xid (output_info->modes[k]);
 			if (strcmp (jmode->name, kmode->name) != 0) continue;
 			mode_shown[k] = True;
+			kmode->modeFlags |= ModeShown;
 			printf (" %6.1f", mode_refresh (kmode));
 			if (kmode == output->mode_info)
 			    printf ("*");
@@ -1998,6 +2311,23 @@ main (int argc, char **argv)
 		    printf ("\n");
 		}
 		free (mode_shown);
+	    }
+	}
+	for (m = 0; m < res->nmode; m++)
+	{
+	    XRRModeInfo	*mode = &res->modes[m];
+
+	    if (!(mode->modeFlags & ModeShown))
+	    {
+		printf ("  %s (0x%x) %6.1fMHz\n",
+			mode->name, mode->id,
+			(float)mode->dotClock / 1000000.0);
+		printf ("        h: width  %4d start %4d end %4d total %4d skew %4d clock %6.1fKHz\n",
+			mode->width, mode->hSyncStart, mode->hSyncEnd,
+			mode->hTotal, mode->hSkew, mode_hsync (mode) / 1000);
+		printf ("        v: height %4d start %4d end %4d total %4d           clock %6.1fHz\n",
+			mode->height, mode->vSyncStart, mode->vSyncEnd, mode->vTotal,
+			mode_refresh (mode));
 	    }
 	}
 	exit (0);
@@ -2027,6 +2357,12 @@ main (int argc, char **argv)
     }
     else if (size < 0)
 	size = current_size;
+    else if (size >= nsize) {
+	fprintf (stderr,
+		 "Size index %d is too large, there are only %d sizes\n",
+		 size, nsize);
+	exit (1);
+    }
 
     if (rot < 0)
     {
@@ -2051,7 +2387,7 @@ main (int argc, char **argv)
 	    if (rate == rates[i])
 		break;
 	if (i == nrate) {
-	    fprintf (stderr, "Rate %d not available for this size\n", rate);
+	    fprintf (stderr, "Rate %.1f Hz not available for this size\n", rate);
 	    exit (1);
 	}
     }
@@ -2063,7 +2399,7 @@ main (int argc, char **argv)
 	       major_version, minor_version);
     }
 
-    if (query) {
+    if (query || query_1) {
 	printf(" SZ:    Pixels          Physical       Refresh\n");
 	for (i = 0; i < nsize; i++) {
 	    printf ("%c%-2d %5d x %-5d  (%4dmm x%4dmm )",
