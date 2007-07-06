@@ -1,8 +1,9 @@
 x11-xserver-utils (7.2-2) experimental; urgency=low
 
   * Add xrandr 1.2.2.
+    + fixes xrandr(1), and thus closes: #430122.
 
- -- Julien Cristau <jcristau@debian.org>  Fri, 06 Jul 2007 22:27:11 +0200
+ -- Julien Cristau <jcristau@debian.org>  Fri, 06 Jul 2007 22:38:18 +0200
 
 x11-xserver-utils (7.2-1) experimental; urgency=low
 
