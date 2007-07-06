@@ -72,6 +72,22 @@ static char *order[6] = {
     "vertical bgr",
     "no subpixels"};
 
+static const struct {
+    char	    *string;
+    unsigned long   flag;
+} mode_flags[] = {
+    { "+HSync", RR_HSyncPositive },
+    { "-HSync", RR_HSyncNegative },
+    { "+VSync", RR_VSyncPositive },
+    { "-VSync", RR_VSyncNegative },
+    { "Interlace", RR_Interlace },
+    { "DoubleScan", RR_DoubleScan },
+    { "CSync",	    RR_CSync },
+    { "+CSync",	    RR_CSyncPositive },
+    { "-CSync",	    RR_CSyncNegative },
+    { NULL,	    0 }
+};
+
 static void
 usage(void)
 {
@@ -120,8 +136,8 @@ usage(void)
     fprintf(stderr, "            <vdisp> <vsync-start> <vsync-end> <vtotal>\n");
     fprintf(stderr, "            [+HSync] [-HSync] [+VSync] [-VSync]\n");
     fprintf(stderr, "  --rmmode <name>\n");
-    fprintf(stderr, "  --addmode <output> <mode>\n");
-    fprintf(stderr, "  --delmode <output> <mode>\n");
+    fprintf(stderr, "  --addmode <output> <name>\n");
+    fprintf(stderr, "  --delmode <output> <name>\n");
 #endif
 
     exit(1);
@@ -244,6 +260,7 @@ struct _output {
     
     name_t	    crtc;
     crtc_t	    *crtc_info;
+    crtc_t	    *current_crtc_info;
     
     name_t	    mode;
     float	    refresh;
@@ -1220,6 +1237,56 @@ mark_changing_crtcs (void)
     }
 }
 
+/*
+ * Test whether 'crtc' can be used for 'output'
+ */
+Bool
+check_crtc_for_output (crtc_t *crtc, output_t *output)
+{
+    int		c;
+    int		l;
+    output_t    *other;
+    
+    for (c = 0; c < output->output_info->ncrtc; c++)
+	if (output->output_info->crtcs[c] == crtc->crtc.xid)
+	    break;
+    if (c == output->output_info->ncrtc)
+	return False;
+    for (other = outputs; other; other = other->next)
+    {
+	if (other == output)
+	    continue;
+
+	if (other->mode_info == NULL)
+	    continue;
+
+	if (other->crtc_info != crtc)
+	    continue;
+
+	/* see if the output connected to the crtc can clone to this output */
+	for (l = 0; l < output->output_info->nclone; l++)
+	    if (output->output_info->clones[l] == other->output.xid)
+		break;
+	/* not on the list, can't clone */
+	if (l == output->output_info->nclone) 
+	    return False;
+    }
+
+    if (crtc->noutput)
+    {
+	/* make sure the state matches */
+	if (crtc->mode_info != output->mode_info)
+	    return False;
+	if (crtc->x != output->x)
+	    return False;
+	if (crtc->y != output->y)
+	    return False;
+	if (crtc->rotation != output->rotation)
+	    return False;
+    }
+    return True;
+}
+
 crtc_t *
 find_crtc_for_output (output_t *output)
 {
@@ -1228,42 +1295,12 @@ find_crtc_for_output (output_t *output)
     for (c = 0; c < output->output_info->ncrtc; c++)
     {
 	crtc_t	    *crtc;
-	int	    l;
-	output_t    *other;
 
 	crtc = find_crtc_by_xid (output->output_info->crtcs[c]);
 	if (!crtc) fatal ("cannot find crtc 0x%x\n", output->output_info->crtcs[c]);
 
-	for (other = outputs; other; other = other->next)
-	{
-	    if (other == output)
-		continue;
-
-	    if (other->mode_info == NULL)
-		continue;
-
-	    if (other->crtc_info != crtc)
-		continue;
-	    
-	    /* see if the output connected to the crtc can clone to this output */
-	    for (l = 0; l < output->output_info->nclone; l++)
-		if (output->output_info->clones[l] == other->output.xid)
-		    break;
-	    /* not on the list, can't clone */
-	    if (l == output->output_info->nclone) break;
-	}
-	if (other) continue;
-	
-
-	if (crtc->noutput)
-	{
-	    /* make sure the state matches */
-	    if (crtc->mode_info != output->mode_info) continue;
-	    if (crtc->x != output->x) continue;
-	    if (crtc->y != output->y) continue;
-	    if (crtc->rotation != output->rotation) continue;
-	}
-	return crtc;
+	if (check_crtc_for_output (crtc, output))
+	    return crtc;
     }
     return NULL;
 }
@@ -1417,6 +1454,124 @@ set_screen_size (void)
     
 #endif
     
+void
+disable_outputs (output_t *outputs)
+{
+    while (outputs)
+    {
+	outputs->crtc_info = NULL;
+	outputs = outputs->next;
+    }
+}
+
+/*
+ * find the best mapping from output to crtc available
+ */
+int
+pick_crtcs_score (output_t *outputs)
+{
+    output_t	*output;
+    int		best_score;
+    int		my_score;
+    int		score;
+    crtc_t	*best_crtc;
+    int		c;
+    
+    if (!outputs)
+	return 0;
+    
+    output = outputs;
+    outputs = outputs->next;
+    /*
+     * Score with this output disabled
+     */
+    output->crtc_info = NULL;
+    best_score = pick_crtcs_score (outputs);
+    if (output->mode_info == NULL)
+	return best_score;
+
+    best_crtc = NULL;
+    /* 
+     * Now score with this output any valid crtc
+     */
+    for (c = 0; c < output->output_info->ncrtc; c++)
+    {
+	crtc_t	    *crtc;
+
+	crtc = find_crtc_by_xid (output->output_info->crtcs[c]);
+	if (!crtc)
+	    fatal ("cannot find crtc 0x%x\n", output->output_info->crtcs[c]);
+	
+	/* reset crtc allocation for following outputs */
+	disable_outputs (outputs);
+	if (!check_crtc_for_output (crtc, output))
+	    continue;
+	
+	my_score = 1000;
+	/* slight preference for existing connections */
+	if (crtc == output->current_crtc_info)
+	    my_score++;
+
+	output->crtc_info = crtc;
+	score = my_score + pick_crtcs_score (outputs);
+	if (score > best_score)
+	{
+	    best_crtc = crtc;
+	    best_score = score;
+	}
+    }
+    /*
+     * Reset other outputs based on this one using the best crtc
+     */
+    if (output->crtc_info != best_crtc)
+    {
+	output->crtc_info = best_crtc;
+	(void) pick_crtcs_score (outputs);
+    }
+    return best_score;
+}
+
+/*
+ * Pick crtcs for any changing outputs that don't have one
+ */
+void
+pick_crtcs (void)
+{
+    output_t	*output;
+
+    /*
+     * First try to match up newly enabled outputs with spare crtcs
+     */
+    for (output = outputs; output; output = output->next)
+    {
+	if (output->changes && output->mode_info && !output->crtc_info)
+	{
+	    output->crtc_info = find_crtc_for_output (output);
+	    if (!output->crtc_info)
+		break;
+	}
+    }
+    /*
+     * Everyone is happy
+     */
+    if (!output)
+	return;
+    /*
+     * When the simple way fails, see if there is a way
+     * to swap crtcs around and make things work
+     */
+    for (output = outputs; output; output = output->next)
+	output->current_crtc_info = output->crtc_info;
+    pick_crtcs_score (outputs);
+    for (output = outputs; output; output = output->next)
+    {
+	if (output->mode_info && !output->crtc_info)
+	    fatal ("cannot find crtc for output %s\n", output->output.string);
+	if (!output->changes && output->crtc_info != output->current_crtc_info)
+	    output->changes |= changes_crtc;
+    }
+}
+
 int
 main (int argc, char **argv)
 {
@@ -1762,21 +1917,6 @@ main (int argc, char **argv)
 	    if (sscanf (argv[i++], "%d", &m->mode.vTotal) != 1) usage();
 	    m->mode.modeFlags = 0;
 	    while (i < argc) {
-		static const struct {
-		    char	    *string;
-		    unsigned long   flag;
-		} mode_flags[] = {
-		    { "+HSync", RR_HSyncPositive },
-		    { "-HSync", RR_HSyncNegative },
-		    { "+VSync", RR_VSyncPositive },
-		    { "-VSync", RR_VSyncNegative },
-		    { "Interlace", RR_Interlace },
-		    { "DoubleScan", RR_DoubleScan },
-		    { "CSync",	    RR_CSync },
-		    { "+CSync",	    RR_CSyncPositive },
-		    { "-CSync",	    RR_CSyncNegative },
-		    { NULL,	    0 }
-		};
 		int f;
 		
 		for (f = 0; mode_flags[f].string; f++)
@@ -2003,18 +2143,7 @@ main (int argc, char **argv)
 	set_positions ();
 	set_screen_size ();
 
-	/*
-	 * Pick crtcs for any changing outputs that don't have one
-	 */
-	for (output = outputs; output; output = output->next)
-	{
-	    if (output->changes && output->mode_info && !output->crtc_info)
-	    {
-		output->crtc_info = find_crtc_for_output (output);
-		if (!output->crtc_info)
-		    fatal ("cannot find crtc for output %s\n", output->output.string);
-	    }
-	}
+	pick_crtcs ();
 
 	/*
 	 * Assign outputs to crtcs
@@ -2118,6 +2247,8 @@ main (int argc, char **argv)
 			mode_width (mode, output->rotation),
 			mode_height (mode, output->rotation),
 			output->x, output->y);
+		if (verbose)
+		    printf (" (0x%x)", mode->id);
 		if (output->rotation != RR_Rotate_0 || verbose)
 		{
 		    printf (" %s", 
@@ -2265,10 +2396,15 @@ main (int argc, char **argv)
 		for (j = 0; j < output_info->nmode; j++)
 		{
 		    XRRModeInfo	*mode = find_mode_by_xid (output_info->modes[j]);
+		    int		f;
 		    
-		    printf ("  %s (0x%x) %6.1fMHz\n",
+		    printf ("  %s (0x%x) %6.1fMHz",
 			    mode->name, mode->id,
 			    (float)mode->dotClock / 1000000.0);
+		    for (f = 0; mode_flags[f].flag; f++)
+			if (mode->modeFlags & mode_flags[f].flag)
+			    printf (" %s", mode_flags[f].string);
+		    printf ("\n");
 		    printf ("        h: width  %4d start %4d end %4d total %4d skew %4d clock %6.1fKHz\n",
 			    mode->width, mode->hSyncStart, mode->hSyncEnd,
 			    mode->hTotal, mode->hSkew, mode_hsync (mode) / 1000);
