@@ -1,9 +1,12 @@
-x11-xserver-utils (7.2+3) UNRELEASED; urgency=low
+x11-xserver-utils (7.2+3) experimental; urgency=low
 
   * xhost 1.0.2.
     + fixes typo in man page (closes: #232384).
+  * Build with -I.git so the source package doesn't contain the whole git
+    repo.
+  * Silence lintian by using + instead of - in the version number.
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 17 Jul 2007 18:27:30 +0200
+ -- Julien Cristau <jcristau@debian.org>  Tue, 17 Jul 2007 18:59:33 +0200
 
 x11-xserver-utils (7.2-2) experimental; urgency=low
 
