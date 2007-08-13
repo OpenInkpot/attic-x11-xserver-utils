@@ -7,10 +7,11 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
   * xgamma 1.0.2.
     + the manpage now explains how to print the gamma value more clearly
       (closes: #296021).
+  * xsetroot 1.0.2.
   * Add upstream URL to debian/copyright, and update it from xgamma's COPYING
     file.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:29:22 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:36:32 +0200
 
 x11-xserver-utils (7.2+3) experimental; urgency=low
 
