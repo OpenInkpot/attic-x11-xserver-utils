@@ -2,8 +2,9 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
 
   * iceauth 1.0.2.
     + removes blank line in the manpage (closes: #25285).
+  * Add upstream URL to debian/copyright.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 14:28:38 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:03:45 +0200
 
 x11-xserver-utils (7.2+3) experimental; urgency=low
 
