@@ -4,9 +4,12 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
     + removes blank line in the manpage (closes: #25285).
   * xmodmap 1.0.3.
     + manpage updated to state that -pm is the default (closes: #236198)
+  * xgamma 1.0.2.
+    + the manpage now explains how to print the gamma value more clearly
+      (closes: #296021).
   * Add upstream URL to debian/copyright.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:10:05 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:23:15 +0200
 
 x11-xserver-utils (7.2+3) experimental; urgency=low
 
