@@ -8,10 +8,13 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
     + the manpage now explains how to print the gamma value more clearly
       (closes: #296021).
   * xsetroot 1.0.2.
+  * xrdb 1.0.4.
+    + fixes manpage typo (closes: #276286).
+
   * Add upstream URL to debian/copyright, and update it from xgamma's COPYING
     file.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 15:36:32 +0200
+ -- Julien Cristau <jcristau@debian.org>  Fri, 17 Aug 2007 00:07:22 +0200
 
 x11-xserver-utils (7.2+3) experimental; urgency=low
 
