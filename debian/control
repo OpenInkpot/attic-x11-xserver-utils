@@ -38,7 +38,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, cpp
 Pre-Depends: x11-common (>= 1:7.0.0)
 Conflicts: iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
  xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
-Replaces: xbase-clients (<= 1:7.2.ds2-3), xutils (<= 1:7.1.ds.3-1),
+Replaces: xbase-clients (<< 1:7.3), xutils (<< 1:7.2),
  iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
  xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
 Description: X server utilities
