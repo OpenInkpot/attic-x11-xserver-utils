@@ -1,5 +1,6 @@
 x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
 
+  [ Julien Cristau ]
   * iceauth 1.0.2.
     + removes blank line in the manpage (closes: #25285).
   * xmodmap 1.0.3.
@@ -14,7 +15,10 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
   * Add upstream URL to debian/copyright, and update it from xgamma's COPYING
     file.
 
- -- Julien Cristau <jcristau@debian.org>  Fri, 17 Aug 2007 00:07:22 +0200
+  [ Brice Goglin ]
+  * Add menu entries for xrefresh and xvidtune.
+
+ -- Brice Goglin <bgoglin@debian.org>  Fri, 17 Aug 2007 09:58:34 +0200
 
 x11-xserver-utils (7.2+3) experimental; urgency=low
 
