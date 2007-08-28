@@ -18,6 +18,7 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
   [ Brice Goglin ]
   * Add menu entries for xrefresh and xvidtune.
   * sessreg 1.0.3.
+  * xset 1.0.3.
 
  -- Brice Goglin <bgoglin@debian.org>  Fri, 17 Aug 2007 09:58:34 +0200
 
