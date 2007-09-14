@@ -1,4 +1,4 @@
-x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
+x11-xserver-utils (7.3+1) unstable; urgency=low
 
   [ Julien Cristau ]
   * iceauth 1.0.2.
@@ -11,7 +11,6 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
   * xsetroot 1.0.2.
   * xrdb 1.0.4.
     + fixes manpage typo (closes: #276286).
-
   * Add upstream URL to debian/copyright, and update it from xgamma's COPYING
     file.
 
@@ -19,6 +18,7 @@ x11-xserver-utils (7.2+4) UNRELEASED; urgency=low
   * Add menu entries for xrefresh and xvidtune.
   * sessreg 1.0.3.
   * xset 1.0.3.
+  * Add myself to Uploaders, and remove Branden with his permission.
 
  -- Brice Goglin <bgoglin@debian.org>  Fri, 17 Aug 2007 09:58:34 +0200
 
