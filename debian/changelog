@@ -1,4 +1,4 @@
-x11-xserver-utils (7.3+2) UNRELEASED; urgency=low
+x11-xserver-utils (7.3+2) unstable; urgency=low
 
   [ Timo Aaltonen ]
   * control: add libxxf86misc-dev to build-depends, it's useful for xset.
@@ -7,7 +7,7 @@ x11-xserver-utils (7.3+2) UNRELEASED; urgency=low
   * Preventively relax Replaces on xutils and xbase-clients so those packages
     can still be updated if needed (e.g. in stable updates).
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 03 Dec 2007 19:09:45 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 03 Dec 2007 20:07:36 +0100
 
 x11-xserver-utils (7.3+1) unstable; urgency=low
 
