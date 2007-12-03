@@ -1,8 +1,7 @@
 x11-xserver-utils (7.3+2) UNRELEASED; urgency=low
 
   [ Timo Aaltonen ]
-  * control: add x11proto-xf86misc-dev to build-depends, it's useful
-    for xset.
+  * control: add libxxf86misc-dev to build-depends, it's useful for xset.
 
   [ Julien Cristau ]
   * Preventively relax Replaces on xutils and xbase-clients so those packages
