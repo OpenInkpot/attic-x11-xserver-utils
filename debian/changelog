@@ -2,6 +2,7 @@ x11-xserver-utils (7.3+3) UNRELEASED; urgency=low
 
   * xrdb 1.0.5
   * xset 1.0.4
+  * xrandr 1.2.3
 
  -- Julien Cristau <jcristau@debian.org>  Fri, 07 Mar 2008 20:27:02 +0100
 
