@@ -1,6 +1,8 @@
 x11-xserver-utils (7.3+3) UNRELEASED; urgency=low
 
   * xrdb 1.0.5
+    + Prevent cpp from prefixing errors with <stdin> when the xrdb input is a
+      file (closes: #458246)
   * xset 1.0.4
   * xrandr 1.2.3
   * update debian/copyright with information from xrandr's COPYING file.
