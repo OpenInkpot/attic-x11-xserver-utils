@@ -1,6 +1,7 @@
 x11-xserver-utils (7.3+4) UNRELEASED; urgency=low
 
   * xrandr: move outputs among CRTCs as necessary (closes: #486142).
+  * debian/rules, xsfbs: fix rule dependencies.
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 02 Aug 2008 16:58:20 +0200
 

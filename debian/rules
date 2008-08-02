@@ -37,8 +37,8 @@ else
 endif
 
 
-build: genscripts patch build-stamp
-build-stamp:
+build: build-stamp
+build-stamp: $(STAMP_DIR)/genscripts $(STAMP_DIR)/patch
 	dh_testdir
 	for FILE in $(DEF_SUBDIRS); do \
 		echo "$$FILE" ; \
