@@ -16,15 +16,17 @@ include debian/xsfbs/xsfbs.mk
 # subdirectory explicitly so that the build system knows what to build
 DEF_SUBDIRS=iceauth rgb sessreg xcmsdb xgamma xhost xmodmap xrandr xrdb xrefresh xset xsetmode xsetpointer xsetroot xstdcmap xtrap xvidtune
 SUBDIRS=$(DEF_SUBDIRS)
+BUILD_STAMPS = $(addprefix $(STAMP_DIR)/build-,$(SUBDIRS))
 
 CFLAGS = -Wall -g
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
 	CFLAGS += -O2
 endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	INSTALL_PROGRAM += -s
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(NUMJOBS)
 endif
 
 DEB_HOST_ARCH      ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
@@ -38,22 +40,21 @@ endif
 
 
 build: build-stamp
-build-stamp: $(STAMP_DIR)/genscripts $(STAMP_DIR)/patch
-	dh_testdir
-	for FILE in $(DEF_SUBDIRS); do \
-		echo "$$FILE" ; \
-		mkdir "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE); \
-		(cd "$$FILE"-obj-$(DEB_BUILD_GNU_TYPE) && \
-		../"$$FILE"/configure --prefix=/usr --mandir=\$${prefix}/share/man \
-		             --infodir=\$${prefix}/share/info $(confflags) \
-		             --disable-xprint \
-		             CFLAGS="$(CFLAGS)" \
-			     RSH=rsh \
-			     MANCONF="/etc/manpath.config" && \
-		$(MAKE)) || exit 1; \
-	done
+build-stamp: $(BUILD_STAMPS)
+	>$@
 
-	touch build-stamp
+$(STAMP_DIR)/build-%: $(STAMP_DIR)/genscripts $(STAMP_DIR)/patch
+	dh_testdir
+	mkdir -p $*-obj-$(DEB_BUILD_GNU_TYPE)
+	cd $*-obj-$(DEB_BUILD_GNU_TYPE) && \
+	../$*/configure --prefix=/usr --mandir=\$${prefix}/share/man \
+	                --infodir=\$${prefix}/share/info $(confflags) \
+	                --disable-xprint \
+	                CFLAGS="$(CFLAGS)" \
+	                RSH=rsh \
+	                MANCONF="/etc/manpath.config"
+	cd $*-obj-$(DEB_BUILD_GNU_TYPE) && $(MAKE)
+	>$@
 
 clean: xsfclean
 	dh_testdir
