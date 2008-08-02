@@ -1,2 +1,3 @@
 01_sessreg_implement_hostname_hashing.diff -p0
 02_xmodmap_manpage.diff
+03_xrandr-Move-outputs-among-crtcs-as-necessary.-Fixes-14570.patch
