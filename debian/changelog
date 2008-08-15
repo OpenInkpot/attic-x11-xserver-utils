@@ -1,3 +1,13 @@
+x11-xserver-utils (7.3+5) UNRELEASED; urgency=low
+
+  * xrandr: Fix for 64bit: feed a pointer to the right size variable to
+    scanf().
+  * xrandr: update the manpage.
+  * xrandr: manpage typo fixes.
+  (all patches from upstream git)
+
+ -- Julien Cristau <jcristau@debian.org>  Fri, 15 Aug 2008 20:58:12 +0200
+
 x11-xserver-utils (7.3+4) unstable; urgency=low
 
   * xrandr: move outputs among CRTCs as necessary (closes: #486142).
