@@ -1,9 +1,18 @@
-x11-xserver-utils (7.3+6) UNRELEASED; urgency=low
+x11-xserver-utils (7.3+5.oi1) unstable; urgency=low
 
+  [ Julien Cristau ]
   * Add support for parallel=n in DEB_BUILD_OPTIONS, and for actually building
     the apps in parallel.  Install is still sequential, at least for now.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 03 Aug 2008 01:26:58 +0200
+  [ Mikhail Gusarov ]
+  * First build for OpenInkpot:
+    - most of the tools are disabled,
+    - maintainer is changed,
+    - sections are adjusted,
+    - build-depends are adjusted,
+    - documentation building made optional
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 23 Aug 2008 16:42:07 +0700
 
 x11-xserver-utils (7.3+5) unstable; urgency=low
 
