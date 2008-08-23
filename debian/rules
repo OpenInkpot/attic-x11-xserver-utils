@@ -14,7 +14,8 @@ include debian/xsfbs/xsfbs.mk
 
 # This package contains multiple modules as shipped by upstream. Each module is # contained in a subdirectory in the root dir of the package. You must list each
 # subdirectory explicitly so that the build system knows what to build
-DEF_SUBDIRS=iceauth rgb sessreg xcmsdb xgamma xhost xmodmap xrandr xrdb xrefresh xset xsetmode xsetpointer xsetroot xstdcmap xtrap xvidtune
+#DEF_SUBDIRS=iceauth rgb sessreg xcmsdb xgamma xhost xmodmap xrandr xrdb xrefresh xset xsetmode xsetpointer xsetroot xstdcmap xtrap xvidtune
+DEF_SUBDIRS=xrandr
 SUBDIRS=$(DEF_SUBDIRS)
 BUILD_STAMPS = $(addprefix $(STAMP_DIR)/build-,$(SUBDIRS))
 
@@ -85,10 +86,14 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 
+ifneq (,$(filter docs,$(DEB_BUILD_OPTIONS)))
 	dh_installdocs
+endif
 	dh_install --sourcedir=debian/tmp -Xrgb.txt --list-missing
-	dh_installmenu
+#	dh_installmenu
+ifneq (,$(filter docs,$(DEB_BUILD_OPTIONS)))
 	dh_installchangelogs
+endif
 	dh_link
 	dh_strip
 	dh_compress

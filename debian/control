@@ -1,14 +1,14 @@
 Source: x11-xserver-utils
-Section: x11
+Section: gui
 Priority: optional
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Uploaders: David Nusinow <dnusinow@debian.org>, Julien Cristau <jcristau@debian.org>, Brice Goglin <bgoglin@debian.org>
-Build-Depends: debhelper (>= 5.0.0), pkg-config, libx11-dev (>= 2:1.0.0-1),
- libxaw7-dev (>= 1:1.0.1-1), libxext-dev (>= 1:1.0.0-1),
- libxi-dev (>= 1:1.0.0-3), libxmuu-dev (>= 1:1.0.1-1),
- libxrandr-dev (>= 2:1.2.0-1), libxt-dev (>= 1:1.0.0-1),
- libxtrap-dev (>= 1:1.0.0-1), libxxf86vm-dev (>= 1:1.0.0-1), xbitmaps, quilt,
- x11proto-input-dev (>= 1.4), libxxf86misc-dev
+Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
+#Build-Depends: debhelper (>= 5.0.0), pkg-config, libx11-dev (>= 2:1.0.0-1),
+# libxaw7-dev (>= 1:1.0.1-1), libxext-dev (>= 1:1.0.0-1),
+# libxi-dev (>= 1:1.0.0-3), libxmuu-dev (>= 1:1.0.1-1),
+# libxrandr-dev (>= 2:1.2.0-1), libxt-dev (>= 1:1.0.0-1),
+# libxtrap-dev (>= 1:1.0.0-1), libxxf86vm-dev (>= 1:1.0.0-1), xbitmaps, quilt,
+# x11proto-input-dev (>= 1.4), libxxf86misc-dev
+#
 # Reasons for build-depends:
 # debhelper for the packaging, pkg-config needed by configure scripts
 # Individual apps:
@@ -28,19 +28,23 @@ Build-Depends: debhelper (>= 5.0.0), pkg-config, libx11-dev (>= 2:1.0.0-1),
 # xstdcmap: libxmu-dev, libx11-dev
 # xtrap: libx11-dev, libxtrap-dev
 # xvidtune: libxaw7-dev, libxxf86vm-dev, libxt-dev
+Build-Depends: debhelper (>= 4.0), pkg-config, libxrandr-dev (>= 2:1.2.0-1)
+XCS-Cross-Host-Build-Depends: debhelper (>= 4.0), pkg-config
+XCS-Cross-Build-Depends: libxrandr-dev (>= 2:1.2.0-1)
 Standards-Version: 3.7.2
-XS-Vcs-Git: git://git.debian.org/git/pkg-xorg/app/x11-xserver-utils
-XS-Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/x11-xserver-utils.git
+XS-Vcs-Git: git://git.openinkpot.org/x11-xserver-utils.git
+XS-Vcs-Browser: http://git.openinkpot.org/x11-xserver-utils.git
 
 Package: x11-xserver-utils
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, cpp
+Depends: ${shlibs:Depends}, ${misc:Depends}
+#, cpp
 Pre-Depends: x11-common (>= 1:7.0.0)
-Conflicts: iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
- xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
-Replaces: xbase-clients (<< 1:7.3), xutils (<< 1:7.2),
- iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
- xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
+#Conflicts: iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
+# xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
+#Replaces: xbase-clients (<< 1:7.3), xutils (<< 1:7.2),
+# iceauth, sessreg, xgamma, xhost, xmodmap, xrandr, xrdb, xrefresh, xrgb, xset,
+# xsetmode, xsetpointer, xsetroot, xstdcmap, xtrap, xvidtune
 Description: X server utilities
  An X client is a program that interfaces with an X server (almost always via
  the X libraries), and thus with some input and output hardware like a
@@ -48,21 +52,21 @@ Description: X server utilities
  .
  This package provides a miscellaneous assortment of X Server utilities
  that ship with the X Window System, including:
-  - iceauth, a tool for manipulating ICE protocol authorization records;
-  - rgb;
-  - sessreg, a simple program for managing utmp/wtmp entries;
-  - xcmsdb, a device color characteristic utility for the X Color Management
-    System;
-  - xgamma, a tool for querying and setting a monitor's gamma correction;
-  - xhost, a very dangerous program that you should never use;
-  - xmodmap, a utility for modifying keymaps and pointer button mappings in X;
+#  - iceauth, a tool for manipulating ICE protocol authorization records;
+#  - rgb;
+#  - sessreg, a simple program for managing utmp/wtmp entries;
+#  - xcmsdb, a device color characteristic utility for the X Color Management
+#    System;
+#  - xgamma, a tool for querying and setting a monitor's gamma correction;
+#  - xhost, a very dangerous program that you should never use;
+#  - xmodmap, a utility for modifying keymaps and pointer button mappings in X;
   - xrandr, a command-line interface to the RandR extension;
-  - xrdb, a tool to manage the X server resource database;
-  - xrefresh, a tool that forces a redraw of the X screen;
-  - xset, a tool for setting miscellaneous X server parameters;
-  - xsetmode and xsetpointer, tools for handling X Input devices;
-  - xsetroot, a tool for tailoring the appearance of the root window;
-  - xstdcmap, a utility to selectively define standard colormap properties;
-  - xtrapchar, xtrapin, xtrapinfo, xtrapout, xtrapproto, xtrapreset, and
-    xtrapstats, a group of sample clients that use the XTrap extension;
-  - xvidtune, a tool for customizing X server modelines for your monitor.
+#  - xrdb, a tool to manage the X server resource database;
+#  - xrefresh, a tool that forces a redraw of the X screen;
+#  - xset, a tool for setting miscellaneous X server parameters;
+#  - xsetmode and xsetpointer, tools for handling X Input devices;
+#  - xsetroot, a tool for tailoring the appearance of the root window;
+#  - xstdcmap, a utility to selectively define standard colormap properties;
+#  - xtrapchar, xtrapin, xtrapinfo, xtrapout, xtrapproto, xtrapreset, and
+#    xtrapstats, a group of sample clients that use the XTrap extension;
+#  - xvidtune, a tool for customizing X server modelines for your monitor.
